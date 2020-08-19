@@ -40,12 +40,16 @@ npm i -D express typescript ts-node nodemon mongoose @types/node @types/express
 7. add the following scripts in package.json file:
 
 
-"start": "node dist/app.js", // start the compiled js server
-"dev": "nodemon src/app.ts", // start the ts dev server
-"build":"tsc -p ." // compile ts files to dist folder with js source
+   "start": "node dist/app.js" - start the compiled js server
+
+   "dev": "nodemon src/app.ts" - start the ts dev server
+
+   "build":"tsc -p ." - compile ts files to dist folder with js source
 
 
  8. In launch.json, replace this following code with the default :
+ 
+ 
 {
     "version": "0.2.0",
     "configurations": [
@@ -65,5 +69,4 @@ npm i -D express typescript ts-node nodemon mongoose @types/node @types/express
     ]
 }
 
- 
  
