@@ -1,25 +1,30 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, {Schema} from 'mongoose';
+import {User} from '../../interfaces/user.interface';
 
 
-const UserSchema: Schema = new Schema({
-  email: {
-    type: String,
-    required: [true , 'Please enter a valid Email'],
-     unique: true
-  },
-  pasword: { 
-    type: String,
-    required: [true , 'Please enter a valid Password'],
+const UserSchema: Schema < User > = new Schema({
+   email: {
+      type: String,
+      required: [true, 'Please enter a valid Email'],
+      unique: true
    },
-  firstName: {
-     type: String,
-      required: [true , 'Please enter a valid firstName'],
-     },
+   password: {
+      type: String,
+      required: [true, 'Please enter a valid Password'],
+   },
+   firstName: {
+      type: String,
+      required: [true, 'Please enter a valid firstName'],
+   },
 
-  lastName: {
-     type: String,
-      required: [true , 'Please enter a valid last name']
-     },
+   lastName: {
+      type: String,
+      required: [true, 'Please enter a valid last name']
+   },
+   isAdmin: {
+      type: Boolean,
+      default: false,
+   }
 })
 
 const User = mongoose.model('users', UserSchema);
