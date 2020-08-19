@@ -1,6 +1,9 @@
-import { getUserById } from './../core/userHandlers';
+import { getUserById } from '../core/userHandlers';
 import { getAllUsers } from '../core/userHandlers';
-import express, { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from 'express';
+import { User } from '../interfaces/user.interface';
+
+const express = require("express")
 
 const router = express.Router();
 
@@ -26,9 +29,13 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
  */
 router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        let user = await getUserById(req.params.id);
+        let user :User = await getUserById(req.params.id);
+       if(user.email) {
         await res.status(200).send(user);
-
+       } else {
+        await res.status(204).send("Did not found the id")
+       }
+       
     } catch (error) {
         next(error)
     }
