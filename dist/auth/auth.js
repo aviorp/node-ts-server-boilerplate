@@ -1,6 +1,6 @@
+"use strict";
 // import jwt from 'jsonwebtoken';
 // import { Request, Response ,NextFunction} from 'express';
-
 // //VERIFY TOKEN ALL
 // const verifyAll = (req:Request, res:Response, next:NextFunction) => {
 //     const token = req.header('authorization');
@@ -18,7 +18,6 @@
 //         });
 //     }
 // }
-
 // //VERIFY TOKEN USER
 // const user = (req:Request, res:Response, next:NextFunction)  => {
 //     const token = req.header('authorization');
@@ -32,16 +31,13 @@
 //                 res.status(401).json({ status: 'failed', message: 'user not authorized' })
 //             }
 //             else {
-
 //                 console.log(auth);
 //                 req.auth = auth;
 //                 next()
-
 //             }
 //         });
 //     }
 // }
-
 // //VERIFY TOKEN ADMIN
 // const admin = (req:Request, res:Response, next:NextFunction)  => {
 //     const token = req.header('authorization');
@@ -66,5 +62,5 @@
 //         });
 //     }
 // }
-
 // module.exports = { verifyAll, user, admin };
+//# sourceMappingURL=auth.js.map
