@@ -1,6 +1,5 @@
-import { verifyUser } from './../auth/auth';
-import { getUserById } from '../core/userHandlers';
-import { getAllUsers } from '../core/userHandlers';
+import { verifyUser } from '../auth';
+import { getAllUsers , getUserById } from '../core/userHandlers';
 import { Request, Response, NextFunction } from 'express';
 import { User } from '../interfaces/user.interface';
 
