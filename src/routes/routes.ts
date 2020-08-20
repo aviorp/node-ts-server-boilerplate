@@ -1,3 +1,4 @@
+import { verifyUser } from './../auth/auth';
 import { getUserById } from '../core/userHandlers';
 import { getAllUsers } from '../core/userHandlers';
 import { Request, Response, NextFunction } from 'express';
@@ -12,7 +13,7 @@ const router = express.Router();
  * 
  * @returns All the users info from the db.
  */
-router.get('/', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/', verifyUser, async (req: Request, res: Response, next: NextFunction) => {
     try {
         let users = await getAllUsers();
         res.status(200).send(users);

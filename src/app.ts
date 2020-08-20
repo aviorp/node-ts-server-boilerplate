@@ -7,7 +7,7 @@ const app = express();
 const port = process.env.port || 3000;
 
 app.use(express.json());
-app.use(morgan())
+app.use(morgan('tiny'))
 connectToMongo();
 app.use(routes);
 app.use('/auth' , authRoutes)

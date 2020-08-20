@@ -23,7 +23,7 @@ export const comparePasswords = (userPassword:string , dbPassword:string) :boole
 } 
 
 export const generateToken = ( user:User ) => {
-  let { email, password , firstName ,lastName}  = user;
-  return jwt.sign({ email, password , firstName ,lastName} ,'secretkey' , {expiresIn:86400});
+  let { email, password , firstName ,lastName , isAdmin}  = user;
+  return jwt.sign({ email, password , firstName ,lastName ,isAdmin} ,'secretkey' , {expiresIn:86400});
 
 }
