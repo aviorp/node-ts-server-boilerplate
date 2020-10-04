@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node dist/app.js",
     "dev": "nodemon src/app.ts",
-    "build": "tsc -p ."
+    "build": "tsc -p .",
+    "dev2": "export $(cat .env | grep -v ^# | xargs) && nodemon src/app.ts"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +28,8 @@
     "@types/morgan": "^1.9.1",
     "bcrypt": "^5.0.0",
     "bcrypt-nodejs": "0.0.3",
+    "dotenv": "^8.2.0",
+    "elastic-apm-node": "^3.7.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.28",
     "morgan": "^1.10.0"

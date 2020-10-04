@@ -22,18 +22,25 @@ tsc --init
 
 
 4. Uncomment and change the following properties:
+
  "target": "esnext",
+
  "sourceMap": true, 
+
  "outDir": "./dist",
+
  "rootDir": "./src",
+
 "moduleResolution": "node", 
 
 
 5. Install the following packages by the command: 
+
 npm i -D express typescript ts-node nodemon mongoose @types/node @types/express
 
 
 6. Create a package json file by the command:
+
  npm init --y
 
 
