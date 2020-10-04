@@ -1,12 +1,8 @@
-import express, {Request , Response,NextFunction} from 'express';
-import apm from 'elastic-apm-node';
-import dotenv from 'dotenv';
+import express, {Request , Response,NextFunction , Application} from 'express';
 import routes from './routes/routes';
 import authRoutes from './routes/authRoutes';
 import { connectToMongo } from './db';
-dotenv.config();
-apm.start();
-console.log(process.env)
+
 const morgan = require('morgan');
 const app = express();
 const port = process.env.port || 3000;

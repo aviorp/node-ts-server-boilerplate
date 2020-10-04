@@ -3,7 +3,7 @@ import { getAllUsers , getUserById } from '../core/userHandlers';
 import { Request, Response, NextFunction } from 'express';
 import { User } from '../interfaces/user.interface';
 
-const express = require("express")
+const express = require("express");
 
 const router = express.Router();
 
