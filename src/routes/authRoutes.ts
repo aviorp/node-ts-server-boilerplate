@@ -1,7 +1,7 @@
-import {UserLoginCredetials, User} from '../interfaces/user.interface';
-import {register, comparePasswords, generateToken} from '../core/authHandlers';
+import { UserLoginCredetials, User } from '../interfaces/user.interface';
+import { register, comparePasswords, generateToken } from '../core/authHandlers';
 import { checkIfUserExist, getUserByEmail } from '../core/userHandlers';
-import {Router, Request,Response, NextFunction } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 const express = require('express')
 const router: Router = express.Router();
 
@@ -31,7 +31,7 @@ router.post('/login', async (req: Request, res: Response, next: NextFunction) =>
             let isValid = await comparePasswords(password, user.password);
             if (isValid) {
                 const token = await generateToken(user);
-              return await res.status(201).send(token);
+                return await res.status(201).send(token);
             }
             return res.status(401).send('Username or Password Invalid')
         } else {

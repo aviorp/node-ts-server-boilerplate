@@ -1,0 +1,15 @@
+export interface Transport {
+    origin: string,
+    destination: string,
+    fromDate: Date,
+    toDate: Date,
+    fromTime: Date,
+    toTime: Date,
+    isPermanent: boolean,
+    seatsNumber: number,
+    vehicleType: string,
+    contactName: string,
+    contactPhone: number,
+    routes: [],
+    isActive: boolean,
+}

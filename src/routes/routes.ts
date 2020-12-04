@@ -1,9 +1,9 @@
-import { verifyUser } from '../auth';
+import { verifyUser } from '../middlewares/auth';
 import { getAllUsers , getUserById } from '../core/userHandlers';
 import { Request, Response, NextFunction } from 'express';
 import { User } from '../interfaces/user.interface';
 
-const express = require("express")
+const express = require("express");
 
 const router = express.Router();
 
@@ -12,7 +12,7 @@ const router = express.Router();
  * 
  * @returns All the users info from the db.
  */
-router.get('/', verifyUser, async (req: Request, res: Response, next: NextFunction) => {
+ router.get('/', verifyUser, async (req: Request, res: Response, next: NextFunction) => {
     try {
         let users = await getAllUsers();
         res.status(200).send(users);

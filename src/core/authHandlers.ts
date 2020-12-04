@@ -1,4 +1,4 @@
-import { User } from './../interfaces/user.interface';
+import { User } from '../interfaces/user.interface';
 import bcrypt from 'bcrypt-nodejs';
 import jwt from 'jsonwebtoken';
 const User = require('../db/models/User');
@@ -18,12 +18,12 @@ export const register = (user: User) => {
 }
 
 
-export const comparePasswords = (userPassword:string , dbPassword:string) :boolean=>  {
+export const comparePasswords = (userPassword: string, dbPassword: string): boolean => {
   return bcrypt.compareSync(userPassword, dbPassword)
-} 
+}
 
-export const generateToken = ( user:User ) => {
-  let { email, password , firstName ,lastName , isAdmin}  = user;
-  return jwt.sign({ email, password , firstName ,lastName ,isAdmin} ,'secretkey' , {expiresIn:86400});
+export const generateToken = (user: User) => {
+  let { email, password, firstName, lastName, isAdmin } = user;
+  return jwt.sign({ email, password, firstName, lastName, isAdmin }, 'secretkey');
 
 }
