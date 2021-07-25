@@ -1,32 +1,41 @@
-import mongoose, {Schema} from 'mongoose';
-import {User} from '../../interfaces/user.interface';
+import mongoose, { Schema, SchemaDefinition } from "mongoose";
+import { UserI } from "../../interfaces";
 
+const UserSchema: Schema<UserI> = new Schema({
+  email: {
+    type: String,
+    required: [true, "Please enter a valid Email"],
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: [true, "Please enter a valid Password"],
+  },
+  firstName: {
+    type: String,
+    required: [true, "Please enter a valid firstName"],
+  },
 
-const UserSchema: Schema < User > = new Schema({
-   email: {
-      type: String,
-      required: [true, 'Please enter a valid Email'],
-      unique: true
-   },
-   password: {
-      type: String,
-      required: [true, 'Please enter a valid Password'],
-   },
-   firstName: {
-      type: String,
-      required: [true, 'Please enter a valid firstName'],
-   },
+  lastName: {
+    type: String,
+    required: [true, "Please enter a valid last name"],
+  },
 
-   lastName: {
-      type: String,
-      required: [true, 'Please enter a valid last name']
-   },
-   isAdmin: {
-      type: Boolean,
-      default: false,
-   }
-})
+  phone: {
+    type: String,
+    required: [true, "Please enter a valid phone"],
+  },
 
-const User = mongoose.model('users', UserSchema);
+  image: {
+    type: String,
+  },
 
-module.exports = User;
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const User = mongoose.model("users", UserSchema);
+
+export default User;

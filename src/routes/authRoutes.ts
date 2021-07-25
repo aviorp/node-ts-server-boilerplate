@@ -1,46 +1,44 @@
-import {UserLoginCredetials, User} from '../interfaces/user.interface';
-import {register, comparePasswords, generateToken} from '../core/authHandlers';
-import { checkIfUserExist, getUserByEmail } from '../core/userHandlers';
-import {Router, Request,Response, NextFunction } from 'express';
-const express = require('express')
-const router: Router = express.Router();
+import express, { Request, Response, NextFunction } from "express";
+import Requirements from "../middlewares/requirements";
+import { useMiddleware } from "../middlewares";
+import { register, login } from "../BL/Auth";
+import { BadRequestError } from "../errorHandlers";
+const router = express.Router();
 
-router.post('/register', async (req: Request, res: Response, next: NextFunction) => {
+/**
+ * The api creates register new user
+ *
+ */
+router.post(
+  "/register",
+  useMiddleware(Requirements.userIsNull),
+  async (req: Request, res: Response, next: NextFunction) => {
     try {
-        let isAlreadyRegistered: boolean = await checkIfUserExist(req.body.email);
-        if (isAlreadyRegistered) {
-            return await res.status(409).send('User Already Exist.')
-        }
-        const newUser = await register(req.body);
-        await res.status(201).send(newUser);
+      await register(req.body);
+      return res.status(201).send("User Created.");
     } catch (error) {
-        next(error)
+      next(new BadRequestError(error));
     }
-});
+  }
+);
 
-
-router.post('/login', async (req: Request, res: Response, next: NextFunction) => {
-    let {
-        email,
-        password
-    }: UserLoginCredetials = req.body;
+/**
+ * user is log in to the server
+ *
+ * @returns valid token.
+ *
+ */
+router.post(
+  "/login",
+  async (req: Request, res: Response, next: NextFunction) => {
     try {
-        let isExist: boolean = await checkIfUserExist(email);
-        let user: User = await getUserByEmail(email);
-        if (isExist) {
-            let isValid = await comparePasswords(password, user.password);
-            if (isValid) {
-                const token = await generateToken(user);
-              return await res.status(201).send(token);
-            }
-            return res.status(401).send('Username or Password Invalid')
-        } else {
-            return res.status(401).send('User not exist.')
-        }
+      const { email, password } = req.body;
+      const response = await login(email, password);
+      return res.status(201).send(response);
     } catch (error) {
-        next(error)
+      next(new BadRequestError(error));
     }
-});
-
+  }
+);
 
 export default router;
