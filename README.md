@@ -4,8 +4,8 @@
 This Server made With Express library to create a Restful Server.
 
 ### Commands
-- npm run start : Create Dist folder with the compiled files (Compiles to JS) & run as Node Program.
-- npm run dev : Start the Dev Server using Nodemon.
+- npm run dev : Create Dist folder with the compiled files (Compiles to JS) & run as Node Program.
+- npm start : Start the Dev Server using Nodemon.
 - npm run build : Compiling the TS files to JS files as Production mode.
 
 
