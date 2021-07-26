@@ -1,9 +1,9 @@
-import generalRoutes from "./generalRoutes";
-import authRoutes from "./authRoutes";
-import userRoutes from "./userRoutes";
+import General from "./General";
+import Auth from "./Auth";
+import User from "./User";
 
 export default [
-  { path: "/", module: generalRoutes },
-  { path: "/auth", module: authRoutes },
-  { path: "/users", module: userRoutes },
+  { path: "/", module: General },
+  { path: "/auth", module: Auth },
+  { path: "/users", module: User },
 ];

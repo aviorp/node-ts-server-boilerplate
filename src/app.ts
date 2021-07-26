@@ -1,10 +1,6 @@
 import config from "./config";
 import HttpService from "./services/HttpService";
-
-const settings = {
-  // socketio: io,
-  "trust proxy": true,
-};
+import settings from "./utils/settings";
 
 HttpService.setSettings(settings);
 HttpService.initApp(config.port);

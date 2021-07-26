@@ -194,56 +194,6 @@ export default {
         },
       },
     },
-    "/get-coaches": {
-      get: {
-        tags: ["Coach"],
-        summary: "Get All Coaches from the collection",
-        produces: ["application/json"],
-        responses: {
-          200: {
-            description: "List Of Coaches",
-          },
-        },
-      },
-    },
-    "/add-coach": {
-      post: {
-        tags: ["Coach"],
-        summary: "Register New Coach",
-        parameters: [
-          {
-            in: "body",
-            description: "send new Coach to the server.",
-            schema: {
-              type: "object",
-              properties: {
-                firstName: {
-                  type: "string",
-                },
-                lastName: {
-                  type: "string",
-                },
-                areas: {
-                  type: "array",
-                },
-                description: {
-                  type: "string",
-                },
-                hourlyRate: {
-                  type: "Number",
-                },
-              },
-            },
-          },
-        ],
-        produces: ["application/json"],
-        responses: {
-          201: {
-            description: "Coach Created.",
-          },
-        },
-      },
-    },
   },
   definitions: {
     User: {

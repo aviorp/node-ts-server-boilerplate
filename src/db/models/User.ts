@@ -1,4 +1,4 @@
-import mongoose, { Schema, SchemaDefinition } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import { UserI } from "../../interfaces";
 
 const UserSchema: Schema<UserI> = new Schema({

@@ -14,7 +14,6 @@ class HttpService {
   constructor() {
     this.app = express();
   }
-
   setSettings(settings: object) {
     Object.entries(settings).forEach((key, value) => {
       this.app.set(key, value);
@@ -34,6 +33,21 @@ class HttpService {
     });
   }
   initApp(port) {
+    this.useDefaultMiddlewares();
+    const server = this.app.listen(port, () =>
+      console.log(`listening on port ${port}...`)
+    );
+    new Server(server);
+  }
+
+  useApi() {
+    this.useRoutes();
+    this.use404ErrorHandler();
+    this.app.use(errorHandler);
+    db();
+  }
+
+  useDefaultMiddlewares() {
     this.app.use(bodyParser.json({ limit: "50mb" }));
     this.app.use(
       bodyParser.urlencoded({
@@ -41,20 +55,7 @@ class HttpService {
         extended: true,
       })
     );
-
     this.app.use(morgan("tiny"));
-    const server = this.app.listen(port, () =>
-      console.log(`listening on port ${port}...`)
-    );
-    const io = new Server(server);
-  }
-
-  async useApi() {
-    this.useRoutes();
-    this.use404ErrorHandler();
-    this.app.use(errorHandler);
-    db();
-    return;
   }
 }
 
