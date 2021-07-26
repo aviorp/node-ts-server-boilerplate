@@ -26,7 +26,7 @@ class HttpService {
     });
     return this;
   }
-  async useRoutes() {
+  useRoutes() {
     this.app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
     routesModules.forEach(({ path, module }) => {
       this.app.use(path, module);
