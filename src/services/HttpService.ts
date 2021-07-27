@@ -1,6 +1,5 @@
-import { NextFunction } from "connect";
-import express from "express";
-import bodyParser from "body-parser";
+import express, { Request, Response, NextFunction } from "express";
+import { json, urlencoded } from "body-parser";
 import swaggerUi from "swagger-ui-express";
 import morgan from "morgan";
 import { Server } from "socket.io";
@@ -14,6 +13,7 @@ class HttpService {
   constructor() {
     this.app = express();
   }
+
   setSettings(settings: object) {
     Object.entries(settings).forEach((key, value) => {
       this.app.set(key, value);
@@ -26,12 +26,14 @@ class HttpService {
     });
     return this;
   }
-  useRoutes() {
+
+  async useRoutes() {
     this.app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
     routesModules.forEach(({ path, module }) => {
       this.app.use(path, module);
     });
   }
+
   initApp(port) {
     this.useDefaultMiddlewares();
     const server = this.app.listen(port, () =>
@@ -48,14 +50,14 @@ class HttpService {
   }
 
   useDefaultMiddlewares() {
-    this.app.use(bodyParser.json({ limit: "50mb" }));
+    this.app.use(morgan("tiny"));
+    this.app.use(json({ limit: "50mb" }));
     this.app.use(
-      bodyParser.urlencoded({
+      urlencoded({
         limit: "50mb",
         extended: true,
       })
     );
-    this.app.use(morgan("tiny"));
   }
 }
 
