@@ -7,6 +7,7 @@ import { errorHandler, NotFoundError } from "../errorHandlers";
 import swaggerDocument from "../swaggerConfig";
 import routesModules from "../routes";
 import db from "../db";
+import cors from "cors";
 
 class HttpService {
   app;
@@ -21,7 +22,8 @@ class HttpService {
   }
 
   use404ErrorHandler() {
-    this.app.all("*", (req: Request, res: Response, next: NextFunction) => {
+    this.app.get("*", (req: Request, res: Response, next: NextFunction) => {
+      // ! ERROR did not return as catch to the front.
       next(new NotFoundError(`Can't find ${req!.url}`));
     });
     return this;
@@ -52,6 +54,7 @@ class HttpService {
   useDefaultMiddlewares() {
     this.app.use(morgan("tiny"));
     this.app.use(json({ limit: "50mb" }));
+    this.app.use(cors());
     this.app.use(
       urlencoded({
         limit: "50mb",
