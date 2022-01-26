@@ -25,7 +25,7 @@ router.get(
       const users = await getAllUsers();
       if (!users.length) return next(new NotFoundError("Dataset Not found."));
       res.status(200).send(users);
-    } catch (error) {
+    } catch (error: any) {
       next(new BadRequestError(error));
     }
   }
@@ -42,7 +42,7 @@ router.post(
     try {
       await addUser(req.body);
       return res.status(201).send("User Created");
-    } catch (error) {
+    } catch (error: any) {
       next(new BadRequestError(error));
     }
   }
@@ -61,7 +61,7 @@ router.get(
     try {
       const user = await getUserByEmail(req.params.email);
       return res.status(200).send(user);
-    } catch (error) {
+    } catch (error: any) {
       next(new BadRequestError(error));
     }
   }
@@ -85,7 +85,7 @@ router.put(
       };
       const response = await updateUser(updatedUser);
       return res.status(200).send(response);
-    } catch (error) {
+    } catch (error: any) {
       next(new BadRequestError(error));
     }
   }
@@ -102,7 +102,7 @@ router.delete(
       const user = await getUserByEmail(req.body.email);
       await deleteUser(user);
       return res.status(200).send("User Deleted.");
-    } catch (error) {
+    } catch (error: any) {
       next(new BadRequestError(error));
     }
   }

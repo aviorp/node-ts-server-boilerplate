@@ -9,3 +9,8 @@ export interface UserI {
   isAdmin?: boolean;
   toObject?: void;
 }
+
+export interface Error {
+  message: string,
+  status?:string,
+}

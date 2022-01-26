@@ -1,9 +1,7 @@
-FROM node:latest
+FROM node:14.17.1
 
-COPY . .
-
-RUN npm install 
-RUN npm run build
-
-
-COPY node dist/app.js
+COPY package.json package.json
+RUN yarn
+WORKDIR /dist
+COPY . /dist/
+RUN yarn build

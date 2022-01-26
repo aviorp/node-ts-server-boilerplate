@@ -16,7 +16,7 @@ router.post(
     try {
       await register(req.body);
       return res.status(201).send("User Created.");
-    } catch (error) {
+    } catch (error: any) {
       next(new BadRequestError(error));
     }
   }
@@ -35,7 +35,7 @@ router.post(
       const { email, password } = req.body;
       const response = await login(email, password);
       return res.status(201).send(response);
-    } catch (error) {
+    } catch (error: any) {
       next(new BadRequestError(error));
     }
   }
