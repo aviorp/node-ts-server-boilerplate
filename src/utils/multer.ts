@@ -2,9 +2,10 @@ import multer from "multer";
 
 // create the storage target
 const storage = multer.diskStorage({
-  destination: (req, file, callback) => {
-    callback(null, "src/uploads/images");
-  },
+  // destination for files (save locally)
+  // destination: (req, file, callback) => {
+  //   callback(null, "src/uploads");
+  // },
   filename: (req, file, callback) => {
     callback(null, file.originalname);
   }
