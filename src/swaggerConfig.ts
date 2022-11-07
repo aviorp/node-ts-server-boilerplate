@@ -9,8 +9,6 @@ export default {
       url: "https://opensource.org/licenses/MIT"
     }
   },
-  host: "localhost:3300",
-  basePath: "/",
   tags: [
     {
       name: "Users",

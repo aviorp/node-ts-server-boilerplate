@@ -6,7 +6,7 @@ import { Server } from "socket.io";
 import { errorHandler, NotFoundError } from "../errorHandlers";
 import swaggerDocument from "../swaggerConfig";
 import routesModules from "../routes";
-import db from "../db";
+import DB from "../db";
 import cors from "cors";
 
 /**
@@ -50,7 +50,8 @@ class HttpService {
     this.useRoutes();
     this.use404ErrorHandler();
     this.app.use(errorHandler);
-    db();
+    // db();
+    DB.init();
   }
 
   useDefaultMiddlewares() {

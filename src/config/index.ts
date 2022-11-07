@@ -12,10 +12,8 @@ export default {
   port: process.env.port || 3300,
   DB_URI: process.env.DB_URI || "mongodb://localhost/testdb",
   jwtSecret: process.env.JWT_SECRET || "secretKey",
-  awsBucketName: process.env.AWS_BUCKET_NAME || "papito-bucket",
+  awsBucketName: process.env.AWS_BUCKET_NAME || "bucketName",
   awsBucketRegion: process.env.AWS_BUCKET_REGION || "eu-central-1",
-  awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID || "AKIAUOGBUMAEG5APRRET",
-  awsSecretAccessKey:
-    process.env.AWS_SECRET_ACCESS_KEY ||
-    "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"
+  awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID || "accessKeyId",
+  awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || "secretAccessKey"
 };
