@@ -1,10 +1,18 @@
 version: "3.9"  # optional since v1.27.0
 services:
+ watchtower:
+    container_name: watchtower
+    restart: always
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      # for private repos
+      # - /root/.docker/config.json:/config.json
+    command: --cleanup --interval 30
  server:
-  image: node-ts-server
   container_name: server
   restart: always
-  build: ../
+  image: aviorp/node-ts-server
   env_file: ./.env.dev
   ports:
      - 80:3300
