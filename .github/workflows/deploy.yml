@@ -1,0 +1,65 @@
+name: Papito CI
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  image: aviorp/node-ts-server
+  username: ${{ secrets.DOCKER_HUB_USERNAME }}
+  password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+jobs:
+  shared:
+     uses: aviorp/node-ts-server-boilerplate/.github/workflows/dependencies.yml@master
+  build:
+    needs: [shared]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-output
+          path: dist
+      - name: Restore cache
+        uses: actions/cache@v2
+        id: cache
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      - name: Deploy Check
+        run: npm run deploy-check
+
+  image-update:
+    runs-on: ubuntu-latest
+    needs: [shared , build]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Restore cache
+        uses: actions/cache@v2
+        id: cache
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-output
+          path: dist
+
+      - name: Build & Push Image
+        run: npm run docker
+
+
+
+
+
+        

@@ -6,7 +6,7 @@ COPY package.json .
 
 RUN apk --no-cache add --virtual builds-deps build-base python
 # install dependecies
-RUN yarn
+RUN npm install
 
 COPY . .
 # compile TS to JS 

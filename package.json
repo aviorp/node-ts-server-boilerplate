@@ -1,12 +1,14 @@
 {
-  "name": "node-ts",
+  "name": "node-ts-server",
   "version": "1.0.0",
   "description": "",
   "main": "app.ts",
   "scripts": {
     "start": "node dist/app.js",
     "dev": "nodemon src/app.ts",
-    "build": "tsc -p ."
+    "build": "tsc -p .",
+    "deploy-check": "npx zx ./scripts/ci.mjs",
+    "docker": "npx zx ./scripts/docker.mjs"
   },
   "keywords": [],
   "author": "",
@@ -19,7 +21,8 @@
     "express": "^4.17.1",
     "nodemon": "^2.0.4",
     "ts-node": "^8.10.2",
-    "typescript": "^4.5.5"
+    "typescript": "^4.5.5",
+    "zx": "^7.1.1"
   },
   "dependencies": {
     "@types/bcrypt": "^3.0.0",
