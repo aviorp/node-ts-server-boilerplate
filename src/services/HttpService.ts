@@ -68,6 +68,11 @@ class HttpService {
   useSwagger() {
     this.app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   }
+  start(port: number = 3300, settings: object = {}) {
+    this.setSettings(settings);
+    this.initApp(port);
+    this.useApi();
+  }
 }
 
 export default new HttpService();

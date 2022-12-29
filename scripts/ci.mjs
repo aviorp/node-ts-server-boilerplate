@@ -9,6 +9,7 @@ requiredEnvVars.forEach(envVar => {
     );
   }
 });
+
 console.log("All required environment variables are defined");
 
 console.log("CI script finished");

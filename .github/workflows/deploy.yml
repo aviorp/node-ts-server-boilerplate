@@ -1,5 +1,5 @@
 name: Papito CI
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+run-name: ${{ github.actor }} | is testing out GitHub Actions 🚀
 
 on:
   push:
@@ -35,9 +35,33 @@ jobs:
       - name: Deploy Check
         run: npm run deploy-check
 
-  image-update:
+  test:
     runs-on: ubuntu-latest
     needs: [shared , build]
+    steps:
+      
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Restore cache
+        uses: actions/cache@v2
+        id: cache
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-output
+          path: dist
+
+      - name: Unit Tests
+        run: npm run test
+   
+  image-update:
+    runs-on: ubuntu-latest
+    needs: [shared , build, test]
     steps:
       - name: Checkout
         uses: actions/checkout@v3

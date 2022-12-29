@@ -14,3 +14,8 @@ export interface Error {
   message: string;
   statusCode?: string;
 }
+
+export interface HealthCheckResponse {
+  status: string;
+  message: string;
+}

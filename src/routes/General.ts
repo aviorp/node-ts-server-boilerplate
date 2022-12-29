@@ -89,4 +89,21 @@ router.delete(
   }
 );
 
+/**
+ * health check endpoint
+ * @returns The message.
+ */
+router.get(
+  "/health",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      res
+        .status(200)
+        .json({ state: "OK", message: "Server is up and running" });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 export default router;

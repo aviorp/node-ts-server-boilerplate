@@ -6,6 +6,4 @@ import settings from "./utils/settings";
  * This file is responsible for the init of the backend.
  * @class HttpService - Application bootstrap file
  */
-HttpService.setSettings(settings);
-HttpService.initApp(config.port);
-HttpService.useApi();
+HttpService.start(config.port, settings);
