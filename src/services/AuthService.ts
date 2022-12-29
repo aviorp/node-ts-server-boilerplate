@@ -1,8 +1,8 @@
 import { compareSync } from "bcryptjs";
 import jwt from "jsonwebtoken";
 import config from "../config/index";
-import User from "../db/models/User";
 import { UserI } from "../interfaces";
+import UserService from "./UserService";
 
 /**
  * This Class is responsible for the service layer of the authentication.
@@ -19,7 +19,7 @@ class AuthService {
   }
 
   async register(newUser: UserI) {
-    return User.create(newUser);
+    return UserService.create(newUser);
   }
   async login(user: UserI, passwordToCompare: string) {
     const signedUser = { ...user };
@@ -29,7 +29,10 @@ class AuthService {
     );
     // throwing error if password is invalid , will lead to route catch block , and then send the message with the error class helpers
     if (!isValid) throw new Error();
-    delete signedUser.password;
+    if (signedUser.password) {
+      delete signedUser.password;
+    }
+
     return this.generateToken(user);
   }
 }

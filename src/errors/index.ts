@@ -1,5 +1,5 @@
-import { UserFacingError } from "./baseErrors";
-import { Request, Response, NextFunction, ErrorRequestHandler } from "express";
+import { ErrorRequestHandler, NextFunction, Request, Response } from "express";
+import { UserFacingError } from "./base";
 export class BadRequestError extends UserFacingError {
   get statusCode() {
     return 400;
@@ -29,10 +29,15 @@ export const errorHandler: ErrorRequestHandler = (
   next: NextFunction
 ) => {
   if (err) {
-    return res.status(400).json({ errorMessage: err.message }); // Bad request
+    return res.status(400).json({
+      state: "error",
+      message: err.message || "Something went wrong."
+    }); // Bad request
   } else {
-    console.error(err);
-    res.status(500).send("Server Error.");
+    res.status(500).json({
+      state: "error",
+      message: "Something went wrong."
+    });
   }
   next();
 };

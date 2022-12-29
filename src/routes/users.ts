@@ -1,10 +1,8 @@
-import express, { Request, Response, NextFunction } from "express";
-import { UserBL } from "../BL";
-
-import { BadRequestError } from "../errorHandlers/index";
-import { useMiddleware } from "../middlewares/index";
-import Requirements from "../middlewares/requirements";
-
+import express, { NextFunction, Request, Response } from "express";
+import { UserBL } from "../business";
+import { BadRequestError } from "../errors";
+import { useMiddleware } from "../middlewares";
+import { requiredId, userExist, userIsNull } from "../middlewares/requirements";
 const router = express.Router();
 
 /**
@@ -14,7 +12,10 @@ const router = express.Router();
 router.get("/", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const users = await UserBL.getAll();
-    res.status(200).send(users);
+    res.status(200).json({
+      state: "success",
+      data: users
+    });
   } catch (error: any) {
     next(new BadRequestError(error));
   }
@@ -26,12 +27,14 @@ router.get("/", async (req: Request, res: Response, next: NextFunction) => {
  */
 router.post(
   "/",
-  useMiddleware(Requirements.userIsNull),
-
+  useMiddleware(userIsNull),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       await UserBL.create(req.body);
-      return res.status(201).send("User Created");
+      return res.status(201).json({
+        state: "success",
+        message: "User Created."
+      });
     } catch (error: any) {
       next(new BadRequestError(error));
     }
@@ -45,12 +48,14 @@ router.post(
  */
 router.get(
   "/:id",
-  useMiddleware(Requirements.isValidId),
-  useMiddleware(Requirements.userExist),
+  useMiddleware(requiredId),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const user = await UserBL.getById(req.params.id);
-      res.status(200).send(user);
+      res.status(200).json({
+        state: "success",
+        data: user
+      });
     } catch (error: any) {
       next(new BadRequestError(error));
     }
@@ -64,14 +69,14 @@ router.get(
  */
 router.put(
   "/:id",
-  [
-    useMiddleware(Requirements.isValidId),
-    useMiddleware(Requirements.userExist)
-  ],
+  useMiddleware([requiredId, userExist]),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       await UserBL.update(req.params.id, req.body);
-      return res.status(201).send("User Updated");
+      return res.status(201).json({
+        state: "success",
+        message: "User Updated"
+      });
     } catch (error: any) {
       next(new BadRequestError(error));
     }
@@ -85,15 +90,14 @@ router.put(
  */
 router.delete(
   "/:id",
-  [
-    useMiddleware(Requirements.userExist),
-    useMiddleware(Requirements.isValidId)
-  ],
+  useMiddleware(requiredId),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const user = await UserBL.getById(req.params.id);
-      await UserBL.delete(user);
-      return res.status(200).send("User Deleted.");
+      await UserBL.delete(req.params.id);
+      return res.status(200).send({
+        state: "success",
+        message: "User Deleted"
+      });
     } catch (error: any) {
       next(new BadRequestError(error));
     }

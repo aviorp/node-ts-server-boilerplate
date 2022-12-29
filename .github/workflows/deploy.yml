@@ -1,5 +1,5 @@
 name: Papito CI
-run-name: ${{ github.actor }} | is testing out GitHub Actions 🚀
+# run-name: ${{ github.actor }} | is testing out GitHub Actions 🚀
 
 on:
   push:
@@ -14,11 +14,11 @@ env:
 jobs:
   shared:
      uses: aviorp/node-ts-server-boilerplate/.github/workflows/dependencies.yml@master
-  build:
+  test:
     needs: [shared]
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Code
         uses: actions/checkout@v3
 
       - name: Download artifacts
@@ -26,44 +26,23 @@ jobs:
         with:
           name: build-output
           path: dist
+
       - name: Restore cache
         uses: actions/cache@v2
         id: cache
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
       - name: Deploy Check
         run: npm run deploy-check
 
-  test:
-    runs-on: ubuntu-latest
-    needs: [shared , build]
-    steps:
-      
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Restore cache
-        uses: actions/cache@v2
-        id: cache
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: build-output
-          path: dist
-
-      - name: Unit Tests
-        run: npm run test
    
   image-update:
     runs-on: ubuntu-latest
-    needs: [shared , build, test]
+    needs: [shared , test]
     steps:
-      - name: Checkout
+      - name: Checkout Code
         uses: actions/checkout@v3
 
       - name: Restore cache

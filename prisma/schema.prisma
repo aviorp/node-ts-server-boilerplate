@@ -1,0 +1,33 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "darwin"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DB_URI")
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  firstName String
+  image     String
+  lastName  String
+  password  String
+  phone     String
+  username  String
+  isAdmin   Boolean? @default(false)
+  // posts     Post[]
+}
+
+// model Post {
+//   id        String   @id @default(auto()) @map("_id") @db.ObjectId
+//   message   String
+//   body      String
+//   image     String
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   published Boolean  @default(false)
+//   author    User     @relation(fields: [authorId], references: [id])
+//   authorId  String   @map("authorId") @db.ObjectId
+// }

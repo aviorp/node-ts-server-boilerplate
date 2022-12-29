@@ -1,7 +1,6 @@
 import { genSaltSync, hashSync } from "bcryptjs";
 import { UserI } from "../interfaces";
-import AuthService from "../services/AuthService";
-import UserService from "../services/UserService";
+import { AuthService, UserService } from "../services";
 
 /**
  *  This Class is responsible for the business logic of the authentication.
@@ -12,7 +11,7 @@ class AuthBL {
     const salt = await genSaltSync(10);
     const hashedPassword = await hashSync(user.password!, salt);
     const newUser = { ...user, password: hashedPassword };
-    return AuthService.register(newUser);
+    return UserService.create(newUser);
   }
   async login(username: string, passwordToCompare: string) {
     const user = await UserService.getByUsername(username);

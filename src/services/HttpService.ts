@@ -1,13 +1,13 @@
-import express, { Request, Response, NextFunction } from "express";
 import { json, urlencoded } from "body-parser";
-import swaggerUi from "swagger-ui-express";
+import cors from "cors";
+import express, { NextFunction, Request, Response } from "express";
 import morgan from "morgan";
 import { Server } from "socket.io";
-import { errorHandler, NotFoundError } from "../errorHandlers";
+import swaggerUi from "swagger-ui-express";
+import { errorHandler, NotFoundError } from "../errors";
+import routes from "../routes";
 import swaggerDocument from "../swaggerConfig";
-import routesModules from "../routes";
-import DB from "../db";
-import cors from "cors";
+import { initDatabase } from "./../db/index";
 
 /**
  * This Class is responsible for the init and run of the server.
@@ -27,13 +27,12 @@ class HttpService {
 
   use404ErrorHandler() {
     this.app.get("*", (req: Request, res: Response, next: NextFunction) => {
-      next(new NotFoundError(`${req.originalUrl} not found`));
+      next(new NotFoundError(`${req.originalUrl!} not found`));
     });
   }
 
   async useRoutes() {
-    this.useSwagger();
-    routesModules.forEach(({ path, module }) => {
+    routes.forEach(({ path, module }) => {
       this.app.use(path, module);
     });
   }
@@ -47,11 +46,11 @@ class HttpService {
   }
 
   useApi() {
+    this.useSwagger();
     this.useRoutes();
     this.use404ErrorHandler();
     this.app.use(errorHandler);
-    // db();
-    DB.init();
+    initDatabase();
   }
 
   useDefaultMiddlewares() {
@@ -66,7 +65,11 @@ class HttpService {
     );
   }
   useSwagger() {
-    this.app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+    this.app.use(
+      "/api-docs",
+      swaggerUi.serve,
+      swaggerUi.setup(swaggerDocument)
+    );
   }
   start(port: number = 3300, settings: object = {}) {
     this.setSettings(settings);

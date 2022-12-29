@@ -1,5 +1,5 @@
 import { UserI } from "../interfaces/index";
-import UserService from "../services/UserService";
+import { UserService } from "../services";
 
 /**
  * This Class is responsible for the business logic of the user endpoint.
@@ -7,21 +7,19 @@ import UserService from "../services/UserService";
  */
 class UserBL {
   getAll() {
-    return UserService.getAll(false);
+    return UserService.getAll();
   }
   getById(id: string) {
     return UserService.getById(id);
   }
-  getByUsername(username: string) {
-    return UserService.getByUsername(username);
-  }
+
   create(newUser: UserI) {
     return UserService.create(newUser);
   }
   update(id: string, updatedUser: UserI) {
     return UserService.update(id, updatedUser);
   }
-  delete(user: UserI) {
+  delete(user: string) {
     return UserService.delete(user);
   }
 }

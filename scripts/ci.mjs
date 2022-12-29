@@ -1,7 +1,7 @@
 #!/usr/bin/env zx
-
+import { requiredEnvVars } from "./constants.mjs";
 console.log("CI script started");
-const requiredEnvVars = ["username", "password", "image"];
+
 requiredEnvVars.forEach(envVar => {
   if (!process.env[envVar]) {
     throw new Error(

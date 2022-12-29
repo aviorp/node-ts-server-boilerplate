@@ -1,13 +1,17 @@
-import General from "./General";
-import Auth from "./Auth";
-import User from "./User";
-
-/**
- * The routes of the application.
- * @returns The routes of the application.
- */
+import auth from "./auth";
+import general from "./general";
+import users from "./users";
 export default [
-  { path: "/", module: General },
-  { path: "/auth", module: Auth },
-  { path: "/users", module: User }
+  {
+    path: "/",
+    module: general
+  },
+  {
+    path: "/auth",
+    module: auth
+  },
+  {
+    path: "/users",
+    module: users
+  }
 ];

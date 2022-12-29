@@ -1,10 +1,10 @@
 import express, { NextFunction, Request, Response } from "express";
-import { upload } from "../utils/multer";
 import {
-  uploadFileToS3Bucket,
+  deleteFileFromS3Bucket,
   downloadFileFromS3Bucket,
-  deleteFileFromS3Bucket
+  uploadFileToS3Bucket
 } from "../apis/s3";
+import { upload } from "../utils/multer";
 const router = express.Router();
 
 /**
@@ -13,9 +13,10 @@ const router = express.Router();
  */
 router.get("/", async (req: Request, res: Response, next: NextFunction) => {
   try {
-    res
-      .status(200)
-      .json({ message: "Use /swagger to see and try all the entities." });
+    res.status(200).json({
+      state: "success",
+      message: "Welcome to the API. Please visit /api-docs for documentation."
+    });
   } catch (error) {
     next(error);
   }
@@ -34,7 +35,8 @@ router.post(
     const file = req.file;
     try {
       await uploadFileToS3Bucket(file);
-      res.status(201).send({
+      res.status(201).json({
+        state: "success",
         message: "File Uploaded",
         fileName: req.file?.filename
       });
@@ -81,6 +83,7 @@ router.delete(
       }
       await deleteFileFromS3Bucket(fileKey);
       res.status(200).send({
+        state: "success",
         message: "File Deleted"
       });
     } catch (error) {

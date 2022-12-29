@@ -30,6 +30,6 @@ export class ServerError extends ApplicationError {
 
 export class UserFacingError extends ApplicationError {
   get statusCode() {
-    return 500;
+    return 400;
   }
 }

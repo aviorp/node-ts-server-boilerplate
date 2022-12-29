@@ -1,26 +1,45 @@
-import User from "../db/models/User";
-import { UserI } from "../interfaces/index";
+import { prisma } from "./../db/";
 
 class UserService {
-  getAll(isAdmin: boolean) {
-    return isAdmin
-      ? User.find({})
-      : User.find({}).select(["-isAdmin", "-password"]);
+  getAll() {
+    return prisma.user.findMany({});
   }
-  getById(_id) {
-    return User.findById({ _id });
+
+  getById(id: string) {
+    return prisma.user.findUnique({
+      where: {
+        id
+      }
+    });
   }
-  getByUsername(username) {
-    return User.findOne({ username });
+
+  getByUsername(username: string) {
+    return prisma.user.findFirst({
+      where: {
+        username
+      }
+    });
   }
-  create(newUser: UserI) {
-    return User.create(newUser);
+
+  create(payload) {
+    return prisma.user.create({
+      data: payload
+    });
   }
-  update(_id, updatedUser) {
-    return User.updateOne({ _id }, { $set: updatedUser });
+  update(id: string, payload = {}) {
+    return prisma.user.update({
+      where: {
+        id
+      },
+      data: payload
+    });
   }
-  delete({ _id }: UserI) {
-    return User.deleteOne({ _id });
+  delete(id: string) {
+    return prisma.user.delete({
+      where: {
+        id
+      }
+    });
   }
 }
 

@@ -6,16 +6,25 @@ export interface UserI {
   lastName: string;
   phone: string;
   image: string;
-  isAdmin?: boolean;
-  toObject?: void;
+  isAdmin: boolean;
 }
 
-export interface Error {
+export interface ErrorI {
   message: string;
   statusCode?: string;
+  status?: string;
+  stack?: string;
 }
 
-export interface HealthCheckResponse {
+export interface HealthCheckResponseI {
   status: string;
   message: string;
+}
+
+export interface PrismaParamsI {
+  args: object | undefined;
+  dataPath: [];
+  runInTransaction: boolean;
+  action: string;
+  model: string;
 }
