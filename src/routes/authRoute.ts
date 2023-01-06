@@ -1,6 +1,9 @@
 import express, { NextFunction, Request, Response } from "express";
 import { AuthBL } from "../business";
 import { BadRequestError } from "../errors";
+import { userIsNull } from "./../middlewares/requirements";
+
+import { useMiddleware } from "../middlewares";
 
 const router = express.Router();
 
@@ -13,7 +16,7 @@ const router = express.Router();
  */
 router.post(
   "/register",
-
+  useMiddleware(userIsNull),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       await AuthBL.register(req.body);

@@ -1,7 +1,6 @@
-import auth from "./auth";
-import general from "./general";
-import users from "./users";
-
+import auth from "./authRoute";
+import general from "./generalRoute";
+import users from "./userRoute";
 export default [
   {
     path: "/",

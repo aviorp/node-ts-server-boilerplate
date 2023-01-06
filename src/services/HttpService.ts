@@ -6,7 +6,7 @@ import { Server } from "socket.io";
 import swaggerUi from "swagger-ui-express";
 import { errorHandler, NotFoundError } from "../errors";
 import routes from "../routes";
-import swaggerDocument from "../swaggerConfig";
+import swaggerConfig from "../swaggerConfig";
 import { initDatabase } from "./../db/index";
 
 /**
@@ -65,11 +65,7 @@ class HttpService {
     );
   }
   useSwagger() {
-    this.app.use(
-      "/api-docs",
-      swaggerUi.serve,
-      swaggerUi.setup(swaggerDocument)
-    );
+    this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerConfig));
   }
   start(port: number = 3300, settings: object = {}) {
     this.setSettings(settings);

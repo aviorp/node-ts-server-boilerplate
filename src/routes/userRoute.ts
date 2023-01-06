@@ -3,6 +3,7 @@ import { UserBL } from "../business";
 import { BadRequestError } from "../errors";
 import { useMiddleware } from "../middlewares";
 import { requiredId, userExist, userIsNull } from "../middlewares/requirements";
+
 const router = express.Router();
 
 /**

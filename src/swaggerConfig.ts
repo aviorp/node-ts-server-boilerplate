@@ -227,3 +227,158 @@ export default {
   consumes: ["application/json"],
   produces: ["application/json"]
 };
+
+// export default {
+//   swagger: "2.0",
+//   info: {
+//     title: "My APIIII",
+//     description: "Description",
+//     version: "1.0.0"
+//   },
+//   host: "localhost:3300",
+//   basePath: "/",
+//   schemes: ["http"],
+//   paths: {
+//     "/": {
+//       get: {
+//         tags: ["Users"],
+//         description: "Gets all the users in the api.",
+//         parameters: [],
+//         responses: {
+//           "200": {
+//             description: "Some description...",
+//             schema: {
+//               $ref: "#/definitions/User"
+//             }
+//           }
+//         }
+//       },
+//       post: {
+//         description: "",
+//         parameters: [],
+//         responses: {
+//           "201": {
+//             description: "Created"
+//           }
+//         }
+//       }
+//     },
+//     "/{id}": {
+//       get: {
+//         description: "",
+//         parameters: [
+//           {
+//             name: "id",
+//             in: "path",
+//             required: true,
+//             type: "string"
+//           }
+//         ],
+//         responses: {
+//           "200": {
+//             description: "OK"
+//           }
+//         }
+//       },
+//       put: {
+//         description: "",
+//         parameters: [
+//           {
+//             name: "id",
+//             in: "path",
+//             required: true,
+//             type: "string"
+//           },
+//           {
+//             name: "body",
+//             in: "body",
+//             schema: {
+//               type: "object",
+//               properties: {
+//                 id: {
+//                   example: "any"
+//                 }
+//               }
+//             }
+//           }
+//         ],
+//         responses: {
+//           "201": {
+//             description: "Created"
+//           }
+//         }
+//       },
+//       delete: {
+//         description: "",
+//         parameters: [
+//           {
+//             name: "id",
+//             in: "path",
+//             required: true,
+//             type: "string"
+//           }
+//         ],
+//         responses: {
+//           "200": {
+//             description: "OK"
+//           }
+//         }
+//       }
+//     }
+//   },
+//   definitions: {
+//     User: {
+//       type: "object",
+//       properties: {
+//         name: {
+//           type: "string",
+//           example: "User"
+//         },
+//         properties: {
+//           type: "object",
+//           properties: {
+//             id: {
+//               type: "object",
+//               properties: {
+//                 type: {
+//                   type: "string",
+//                   example: "string"
+//                 },
+//                 description: {
+//                   type: "string",
+//                   example: "The user ID."
+//                 }
+//               }
+//             },
+//             name: {
+//               type: "object",
+//               properties: {
+//                 type: {
+//                   type: "string",
+//                   example: "string"
+//                 },
+//                 description: {
+//                   type: "string",
+//                   example: "Name of the user."
+//                 }
+//               }
+//             },
+//             email: {
+//               type: "object",
+//               properties: {
+//                 type: {
+//                   type: "string",
+//                   example: "string"
+//                 },
+//                 description: {
+//                   type: "string",
+//                   example: "Email of the user."
+//                 }
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// };
