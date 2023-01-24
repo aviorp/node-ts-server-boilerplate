@@ -1,5 +1,4 @@
 import "dotenv/config";
-
 /**
  * exporting the config object to be used in the application.
  * @exports config
@@ -18,5 +17,5 @@ export default {
   awsBucketName: process.env.AWS_BUCKET_NAME || "bucketName",
   awsBucketRegion: process.env.AWS_BUCKET_REGION || "eu-central-1",
   awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID || "accessKeyId",
-  awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || "secretAccessKey"
+  awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || "secretAccessKey",
 };

@@ -1,5 +1,3 @@
-# build and run typescript in docker container with node and npm installed
-
 FROM node:latest
 
 # Create app directory
@@ -14,7 +12,6 @@ COPY . .
 
 # Compile typescript
 RUN npm run build
-
 
 # Expose port 3300
 EXPOSE 3300

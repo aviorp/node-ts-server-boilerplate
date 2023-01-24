@@ -13,7 +13,7 @@ env:
   password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 jobs:
   Shared:
-     uses: aviorp/node-ts-server-boilerplate/.github/workflows/dependencies.yml@master
+     uses: aviorp/node-ts-server-boilerplate/.github/workflows/setup.yml@master
   Tests:
     needs: [shared]
     runs-on: ubuntu-latest

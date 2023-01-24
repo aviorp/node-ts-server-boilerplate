@@ -4,14 +4,14 @@ import users from "./userRoute";
 export default [
   {
     path: "/",
-    module: general
+    module: general,
   },
   {
     path: "/auth",
-    module: auth
+    module: auth,
   },
   {
     path: "/users",
-    module: users
-  }
+    module: users,
+  },
 ];

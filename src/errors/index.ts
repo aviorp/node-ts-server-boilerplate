@@ -22,21 +22,16 @@ export class ForbiddenError extends UserFacingError {
   }
 }
 
-export const errorHandler: ErrorRequestHandler = (
-  err: any,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const errorHandler: ErrorRequestHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
   if (err) {
     return res.status(400).json({
       state: "error",
-      message: err.message || "Something went wrong."
+      message: err.message || "Something went wrong.",
     }); // Bad request
   } else {
     res.status(500).json({
       state: "error",
-      message: "Something went wrong."
+      message: "Something went wrong.",
     });
   }
   next();

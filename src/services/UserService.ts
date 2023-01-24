@@ -8,37 +8,37 @@ class UserService {
   getById(id: string) {
     return prisma.user.findUnique({
       where: {
-        id
-      }
+        id,
+      },
     });
   }
 
   getByUsername(username: string) {
     return prisma.user.findFirst({
       where: {
-        username
-      }
+        username,
+      },
     });
   }
 
   create(payload) {
     return prisma.user.create({
-      data: payload
+      data: payload,
     });
   }
   update(id: string, payload = {}) {
     return prisma.user.update({
       where: {
-        id
+        id,
       },
-      data: payload
+      data: payload,
     });
   }
   delete(id: string) {
     return prisma.user.delete({
       where: {
-        id
-      }
+        id,
+      },
     });
   }
 }

@@ -3,21 +3,13 @@ import { ObjectId } from "mongodb";
 import { BadRequestError, UnauthorizedError } from "../errors";
 import { UserService } from "../services";
 
-export const userIsNull = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const userIsNull = async (req: Request, res: Response, next: NextFunction) => {
   const username = req.body.username || req.params.username;
   const user = await UserService.getByUsername(username);
   if (user) return next(new BadRequestError("User is exist."));
   next();
 };
-export const userExist = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const userExist = async (req: Request, res: Response, next: NextFunction) => {
   const id = req.body.id || req.params.id;
   const user = await UserService.getById(id);
   if (!user) return next(new UnauthorizedError("User is not exist."));

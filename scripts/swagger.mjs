@@ -5,7 +5,7 @@ const doc = {
   swagger: "2.0",
   info: {
     title: "My APIIII",
-    description: "Description"
+    description: "Description",
   },
   host: "localhost:3300",
   definitions: {
@@ -13,34 +13,34 @@ const doc = {
       required: ["email", "_id", "password"],
       properties: {
         username: {
-          type: "string"
+          type: "string",
         },
         password: {
-          type: "string"
+          type: "string",
         },
         firstName: {
-          type: "string"
+          type: "string",
         },
         lastName: {
-          type: "string"
+          type: "string",
         },
 
         phone: {
-          type: "string"
+          type: "string",
         },
         image: {
-          type: "string"
-        }
-      }
+          type: "string",
+        },
+      },
     },
     Users: {
       type: "array",
-      $ref: "#/definitions/User"
-    }
+      $ref: "#/definitions/User",
+    },
   },
   schemes: ["http"],
   consumes: ["application/json"],
-  produces: ["application/json"]
+  produces: ["application/json"],
 };
 
 const outputFile = "../docs/output.json";

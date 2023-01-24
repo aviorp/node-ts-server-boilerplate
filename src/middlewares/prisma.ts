@@ -14,9 +14,7 @@ import { prisma } from "../db/index";
 prisma.$use(async (params: MiddlewareParams, next) => {
   const before = Date.now();
   const after = Date.now();
-  console.log(
-    `Query ${params.model}.${params.action} took ${after - before}ms`
-  );
+  console.log(`Query ${params.model}.${params.action} took ${after - before}ms`);
 
   return await next(params);
 });

@@ -39,9 +39,7 @@ class HttpService {
 
   initApp(port) {
     this.useDefaultMiddlewares();
-    const server = this.app.listen(port, () =>
-      console.log(`Server is running on port ${port}`)
-    );
+    const server = this.app.listen(port, () => console.log(`Server is running on port ${port}`));
     new Server(server);
   }
 
@@ -60,7 +58,7 @@ class HttpService {
     this.app.use(
       urlencoded({
         limit: "50mb",
-        extended: true
+        extended: true,
       })
     );
   }

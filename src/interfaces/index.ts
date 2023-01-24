@@ -1,4 +1,4 @@
-export interface UserI {
+export type UserI = {
   _id?: string;
   username: string;
   password?: string;
@@ -7,24 +7,23 @@ export interface UserI {
   phone: string;
   image: string;
   isAdmin: boolean;
-}
-
-export interface ErrorI {
+};
+export type ErrorI = {
   message: string;
   statusCode?: string;
   status?: string;
   stack?: string;
-}
+};
 
-export interface HealthCheckResponseI {
+export type HealthCheckResponseI = {
   status: string;
   message: string;
-}
+};
 
-export interface PrismaParamsI {
+export type PrismaParamsI = {
   args: object | undefined;
   dataPath: [];
   runInTransaction: boolean;
   action: string;
   model: string;
-}
+};

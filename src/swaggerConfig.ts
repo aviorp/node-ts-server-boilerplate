@@ -6,18 +6,18 @@ export default {
     description: "A Skeleton made for self use.",
     license: {
       name: "MIT",
-      url: "https://opensource.org/licenses/MIT"
-    }
+      url: "https://opensource.org/licenses/MIT",
+    },
   },
   tags: [
     {
       name: "Users",
-      description: "API for users in the system"
+      description: "API for users in the system",
     },
     {
       name: "Auth",
-      description: "User Authentications & register."
-    }
+      description: "User Authentications & register.",
+    },
   ],
   paths: {
     "/users": {
@@ -28,36 +28,35 @@ export default {
           200: {
             description: "OK",
             schema: {
-              $ref: "#/definitions/Users"
-            }
-          }
-        }
+              $ref: "#/definitions/Users",
+            },
+          },
+        },
       },
       post: {
         tags: ["Users"],
         summary: "Creates a new users in the api.",
-        description:
-          "Creates a new user in the api by username, password, and email.",
+        description: "Creates a new user in the api by username, password, and email.",
         parameters: [
           {
             name: "user",
             in: "body",
             description: "User object.",
             schema: {
-              $ref: "#/definitions/User"
-            }
-          }
+              $ref: "#/definitions/User",
+            },
+          },
         ],
         produces: ["application/json"],
         responses: {
           201: {
             description: "User Created",
             schema: {
-              $ref: "#/definitions/User"
-            }
-          }
-        }
-      }
+              $ref: "#/definitions/User",
+            },
+          },
+        },
+      },
     },
     "/users/{id}": {
       get: {
@@ -71,18 +70,18 @@ export default {
             required: true,
             description: "User that we want to get, represented by his id.",
             schema: {
-              $ref: "#/definitions/User"
-            }
-          }
+              $ref: "#/definitions/User",
+            },
+          },
         ],
         responses: {
           200: {
             description: "OK",
             schema: {
-              $ref: "#/definitions/Users"
-            }
-          }
-        }
+              $ref: "#/definitions/Users",
+            },
+          },
+        },
       },
       put: {
         tags: ["Users"],
@@ -93,26 +92,26 @@ export default {
             name: "id",
             in: "path",
             required: true,
-            description: "User that we want to update, represented by his id."
+            description: "User that we want to update, represented by his id.",
           },
           {
             name: "user",
             in: "body",
             description: "User that we want to update",
             schema: {
-              $ref: "#/definitions/User"
-            }
-          }
+              $ref: "#/definitions/User",
+            },
+          },
         ],
         produces: ["application/json"],
         responses: {
           200: {
             description: "User Updated.",
             schema: {
-              $ref: "#/definitions/User"
-            }
-          }
-        }
+              $ref: "#/definitions/User",
+            },
+          },
+        },
       },
       delete: {
         tags: ["Users"],
@@ -124,17 +123,17 @@ export default {
             type: "string",
             description: "ID that we want to delete user with.",
             schema: {
-              $ref: "#/definitions/User"
-            }
-          }
+              $ref: "#/definitions/User",
+            },
+          },
         ],
         produces: ["application/json"],
         responses: {
           200: {
-            description: "User Deleted."
-          }
-        }
-      }
+            description: "User Deleted.",
+          },
+        },
+      },
     },
     "/auth/register": {
       post: {
@@ -146,20 +145,20 @@ export default {
             in: "body",
             description: "User that we want to create",
             schema: {
-              $ref: "#/definitions/User"
-            }
-          }
+              $ref: "#/definitions/User",
+            },
+          },
         ],
         produces: ["application/json"],
         responses: {
           201: {
             description: "User Created.",
             schema: {
-              $ref: "#/definitions/User"
-            }
-          }
-        }
-      }
+              $ref: "#/definitions/User",
+            },
+          },
+        },
+      },
     },
     "/auth/login": {
       post: {
@@ -169,63 +168,62 @@ export default {
           {
             name: "user",
             in: "body",
-            description:
-              "Send credentials and the server will send you a valid token.",
+            description: "Send credentials and the server will send you a valid token.",
             schema: {
               type: "object",
               properties: {
                 username: {
-                  type: "string"
+                  type: "string",
                 },
                 password: {
-                  type: "string"
-                }
-              }
-            }
-          }
+                  type: "string",
+                },
+              },
+            },
+          },
         ],
         produces: ["application/json"],
         responses: {
           201: {
-            description: "Valid Token."
-          }
-        }
-      }
-    }
+            description: "Valid Token.",
+          },
+        },
+      },
+    },
   },
   definitions: {
     User: {
       required: ["email", "_id", "password"],
       properties: {
         username: {
-          type: "string"
+          type: "string",
         },
         password: {
-          type: "string"
+          type: "string",
         },
         firstName: {
-          type: "string"
+          type: "string",
         },
         lastName: {
-          type: "string"
+          type: "string",
         },
 
         phone: {
-          type: "string"
+          type: "string",
         },
         image: {
-          type: "string"
-        }
-      }
+          type: "string",
+        },
+      },
     },
     Users: {
       type: "array",
-      $ref: "#/definitions/User"
-    }
+      $ref: "#/definitions/User",
+    },
   },
   schemes: ["http"],
   consumes: ["application/json"],
-  produces: ["application/json"]
+  produces: ["application/json"],
 };
 
 // export default {

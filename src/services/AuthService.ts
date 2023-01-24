@@ -14,7 +14,7 @@ class AuthService {
   }
   generateToken(user: UserI) {
     return jwt.sign(JSON.parse(JSON.stringify(user)), config.jwtSecret, {
-      expiresIn: 600000
+      expiresIn: 600000,
     });
   }
 
@@ -23,10 +23,7 @@ class AuthService {
   }
   async login(user: UserI, passwordToCompare: string) {
     const signedUser = { ...user };
-    const isValid = await this.comparePasswords(
-      passwordToCompare,
-      user.password!
-    );
+    const isValid = await this.comparePasswords(passwordToCompare, user.password!);
     // throwing error if password is invalid , will lead to route catch block , and then send the message with the error class helpers
     if (!isValid) throw new Error();
     if (signedUser.password) {

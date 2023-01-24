@@ -1,5 +1,5 @@
-import fs from "fs";
 import S3 from "aws-sdk/clients/s3";
+import fs from "fs";
 import config from "../config";
 
 const bucketName = config.awsBucketName;
@@ -10,7 +10,7 @@ const secretAccessKey = config.awsSecretAccessKey;
 const s3 = new S3({
   region,
   accessKeyId,
-  secretAccessKey
+  secretAccessKey,
 });
 
 /**
@@ -19,12 +19,12 @@ const s3 = new S3({
  * @returns {Promise} - Promise object represents the data of the file.
  *
  */
-export const uploadFileToS3Bucket = file => {
+export const uploadFileToS3Bucket = (file) => {
   const fileStream = fs.createReadStream(file.path);
   const uploadParams = {
     Bucket: bucketName,
     Body: fileStream,
-    Key: file.filename
+    Key: file.filename,
   };
   return s3.upload(uploadParams).promise();
 };
@@ -34,10 +34,10 @@ export const uploadFileToS3Bucket = file => {
  * @param {string} fileKey - The name of the file to download.
  * @returns {Promise} - Promise object represents the data of the file.
  */
-export const downloadFileFromS3Bucket = fileKey => {
+export const downloadFileFromS3Bucket = (fileKey) => {
   const downloadParams = {
     Key: fileKey,
-    Bucket: bucketName
+    Bucket: bucketName,
   };
   return s3.getObject(downloadParams).createReadStream();
 };
@@ -47,10 +47,10 @@ export const downloadFileFromS3Bucket = fileKey => {
  * @param {string} fileKey - The name of the file to download.
  */
 
-export const deleteFileFromS3Bucket = fileKey => {
+export const deleteFileFromS3Bucket = (fileKey) => {
   const deleteParams = {
     Key: fileKey,
-    Bucket: bucketName
+    Bucket: bucketName,
   };
   return s3.deleteObject(deleteParams).promise();
 };
