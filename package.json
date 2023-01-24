@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.ts",
   "scripts": {
-    "start": "npx prisma generate & node dist/app.js",
-    "dev": "node ./scripts/swagger.mjs && npx prisma generate &&  npx nodemon src/app.ts",
+    "start": "npx prisma generate && node dist/app.js",
+    "dev": "npx prisma generate && npx nodemon src/app.ts",
     "build": "npx tsc -p . ",
     "test": "npx jest",
     "deploy-check": "npx zx ./scripts/ci.mjs",
@@ -30,7 +30,6 @@
     "bcryptjs": "^2.4.3",
     "express": "^4.18.2",
     "jest": "^29.3.1",
-    "nodemon": "^2.0.20",
     "prisma": "^4.8.1",
     "superagent": "^8.0.6",
     "supertest": "^6.3.3",
@@ -43,7 +42,6 @@
     "@types/bcrypt-nodejs": "0.0.31",
     "@types/jsonwebtoken": "^8.5.9",
     "@types/morgan": "^1.9.4",
-    "@types/multer": "^1.4.7",
     "aws-sdk": "^2.1292.0",
     "axios": "^1.2.2",
     "bcrypt": "^5.1.0",
@@ -54,7 +52,6 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.13.0",
     "morgan": "^1.10.0",
-    "multer": "^1.4.4",
     "socket.io": "^4.5.4",
     "swagger-ui-express": "^4.6.0"
   }

@@ -4,7 +4,6 @@ import {
   downloadFileFromS3Bucket,
   uploadFileToS3Bucket
 } from "../apis/s3";
-import { upload } from "../utils/multer";
 const router = express.Router();
 
 /**
@@ -30,15 +29,14 @@ router.get("/", async (req: Request, res: Response, next: NextFunction) => {
  */
 router.post(
   "/upload",
-  upload.single("file"),
-  async (req: Request, res: Response, next: NextFunction) => {
-    const file = req.file;
+
+  async (req: Request, res: any, next: NextFunction) => {
+    const file = req?.body.files;
     try {
       await uploadFileToS3Bucket(file);
       res.status(201).json({
         state: "success",
-        message: "File Uploaded",
-        fileName: req.file?.filename
+        message: "File Uploaded"
       });
     } catch (error) {
       next(error);

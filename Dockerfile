@@ -1,16 +1,21 @@
-FROM  --platform=linux/amd64  node:18.12.1-alpine
+# build and run typescript in docker container with node and npm installed
 
+FROM node:latest
+
+# Create app directory
 WORKDIR /app
 
-COPY package.json .
+# Install app dependencies
+COPY package*.json ./
+RUN npm install
 
-RUN apk --no-cache add --virtual builds-deps build-base python
-# install dependecies
-RUN yarn
+# Bundle app source
 COPY . .
-# compile TS to JS 
-RUN yarn build
 
+# Compile typescript
+RUN npm run build
+
+
+# Expose port 3300
 EXPOSE 3300
-# run as native js
-CMD yarn start
+CMD [ "npm", "start" ]

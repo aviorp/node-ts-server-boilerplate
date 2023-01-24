@@ -3,7 +3,7 @@ name: CI
 on:
  workflow_call:
 jobs:
-  install-build:
+  Setup:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
