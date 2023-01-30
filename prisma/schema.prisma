@@ -17,5 +17,4 @@ model User {
   phone     String
   username  String
   isAdmin   Boolean? @default(false)
-  Post      Post[]
 }
