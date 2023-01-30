@@ -17,4 +17,16 @@ model User {
   phone     String
   username  String
   isAdmin   Boolean? @default(false)
+  Post      Post[]
+}
+
+model Post {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String
+  body      String
+  published Boolean? @default(false)
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
 }
