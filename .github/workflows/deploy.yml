@@ -3,9 +3,7 @@ name: Papito CI
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    branches: [master]
 
 env:
   image: aviorp/node-ts-server
@@ -13,7 +11,7 @@ env:
   password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 jobs:
   Shared:
-     uses: aviorp/node-ts-server-boilerplate/.github/workflows/setup.yml@master
+    uses: aviorp/node-ts-server-boilerplate/.github/workflows/setup.yml@master
   Tests:
     needs: [shared]
     runs-on: ubuntu-latest
@@ -37,10 +35,9 @@ jobs:
       - name: Deploy Check
         run: npm run deploy-check
 
-   
   Image-Update:
     runs-on: ubuntu-latest
-    needs: [Shared , Tests]
+    needs: [Shared, Tests]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -60,9 +57,3 @@ jobs:
 
       - name: Build & Push Image
         run: npm run docker
-
-
-
-
-
-        
