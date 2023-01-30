@@ -9,12 +9,11 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  firstName String
-  image     String
-  lastName  String
-  password  String
-  phone     String
-  username  String
-  isAdmin   Boolean? @default(false)
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  first_name String
+  last_name  String
+  password   String
+  image      String
+  username   String
+  is_admin   Boolean? @default(false)
 }

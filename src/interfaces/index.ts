@@ -2,11 +2,10 @@ export type UserI = {
   _id?: string;
   username: string;
   password?: string;
-  firstName: string;
-  lastName: string;
-  phone: string;
+  first_name: string;
+  last_name: string;
   image: string;
-  isAdmin: boolean;
+  is_admin: boolean;
 };
 export type ErrorI = {
   message: string;

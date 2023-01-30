@@ -1,43 +1,14 @@
 import { prisma } from "./../db/";
+import BaseService from "./BaseService";
 
-class UserService {
-  getAll() {
-    return prisma.user.findMany({});
+class UserService extends BaseService {
+  constructor() {
+    super("user");
   }
-
-  getById(id: string) {
-    return prisma.user.findUnique({
-      where: {
-        id,
-      },
-    });
-  }
-
   getByUsername(username: string) {
     return prisma.user.findFirst({
       where: {
         username,
-      },
-    });
-  }
-
-  create(payload) {
-    return prisma.user.create({
-      data: payload,
-    });
-  }
-  update(id: string, payload = {}) {
-    return prisma.user.update({
-      where: {
-        id,
-      },
-      data: payload,
-    });
-  }
-  delete(id: string) {
-    return prisma.user.delete({
-      where: {
-        id,
       },
     });
   }

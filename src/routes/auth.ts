@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import { AuthBL } from "../business";
 import { BadRequestError } from "../errors";
-import { userIsNull } from "./../middlewares/requirements";
+import { userIsNull } from "../middlewares/requirements";
 
 import { useMiddleware } from "../middlewares";
 

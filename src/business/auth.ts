@@ -14,8 +14,7 @@ class AuthBL {
     return UserService.create(newUser);
   }
   async login(username: string, passwordToCompare: string) {
-    const user = (await UserService.getByUsername(username)) as UserI;
-
+    const user = (await UserService.getByUsername(username)) as unknown as UserI;
     return await AuthService.login(user, passwordToCompare);
   }
 }

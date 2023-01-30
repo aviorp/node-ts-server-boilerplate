@@ -1,6 +1,4 @@
-name: Papito CI
-# run-name: ${{ github.actor }} | is testing out GitHub Actions 🚀
-
+name: Papito CI/CD
 on:
   push:
     branches: [master]
