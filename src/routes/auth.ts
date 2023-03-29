@@ -1,104 +1,56 @@
 import express, { NextFunction, Request, Response } from "express";
-import { UserBL } from "../business";
+import { AuthBL } from "../business";
 import { BadRequestError } from "../errors";
+import { userIsNull } from "../middlewares/requirements";
+import { decodeToken } from "../utils";
 import { useMiddleware } from "../middlewares";
-import { requiredId, userExist, userIsNull } from "../middlewares/requirements";
 
 const router = express.Router();
 
 /**
- * Gets all the users in the api.
- * @returns All The users in the api.
+ * Register a new user.
+ * @param username The username of the user.
+ * @param password The password of the user.
+ * @returns The user with the given username.
+ * @returns The message.
  */
-router.get("/", async (req: Request, res: Response, next: NextFunction) => {
+router.post("/register", useMiddleware(userIsNull), async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const users = await UserBL.getAll();
-    res.status(200).json({
-      state: "success",
-      data: users,
-    });
-  } catch (error: any) {
-    next(new BadRequestError(error.message));
-  }
-});
-
-router.get("/search", async (req: Request, res: Response, next: NextFunction) => {
-  const text = req.query["text"];
-  try {
-    const users = await UserBL.search(text as string);
-    res.status(200).json({
-      state: "success",
-      data: users,
-    });
-  } catch (error: any) {
-    next(new BadRequestError(error));
-  }
-});
-
-/**
- * Creates a new user.
- * @interface UserI,
- */
-router.post("/", useMiddleware(userIsNull), async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    await UserBL.create(req.body);
+    await AuthBL.register(req.body);
     return res.status(201).json({
       state: "success",
       message: "User Created.",
     });
   } catch (error: any) {
-    next(new BadRequestError(error.message));
+    next(new BadRequestError("Failed to create user."));
   }
 });
 
 /**
- * Gets a user by id.
- * @param id The id of the user.
- * @returns The user with the given id.
+ * Login a user.
+ * @param username The username of the user.
+ * @param password The password of the user.
+ * @returns The user with the given username.
+ * @returns The message.
+ * @returns The token.
  */
-router.get("/:id", useMiddleware(requiredId), async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const user = await UserBL.getById(req.params.id);
-    res.status(200).json({
-      state: "success",
-      data: user,
-    });
-  } catch (error: any) {
-    next(new BadRequestError(error.message));
+router.post("/login", async (req: Request, res: Response, next: NextFunction) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    throw new Error("Missing username or password.");
   }
-});
-
-/**
- * Updates a user by id.
- * @param id The id of the user.
- * @returns The updated user.
- */
-router.put("/:id", useMiddleware([requiredId, userExist]), async (req: Request, res: Response, next: NextFunction) => {
   try {
-    await UserBL.update(req.params.id, req.body);
+    const token = await AuthBL.login(username, password);
+    const user = decodeToken(token);
+    res.app.set("token", token);
+    res.app.set("user", user);
     return res.status(201).json({
       state: "success",
-      message: "User Updated",
+      message: "User Logged In.",
+      token,
     });
   } catch (error: any) {
-    next(new BadRequestError(error.message));
-  }
-});
-
-/**
- * Deletes a user by id.
- * @param id The id of the user.
- * @returns The deleted user.
- */
-router.delete("/:id", useMiddleware(requiredId), async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    await UserBL.delete(req.params.id);
-    return res.status(200).send({
-      state: "success",
-      message: "User Deleted",
-    });
-  } catch (error: any) {
-    next(new BadRequestError(error.message));
+    next(new BadRequestError("Username or Password Are Invalid."));
   }
 });
 
