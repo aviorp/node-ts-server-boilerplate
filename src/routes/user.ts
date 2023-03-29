@@ -11,7 +11,7 @@ const router = express.Router();
  * Gets all the users in the api.
  * @returns All The users in the api.
  */
-router.get("/", useMiddleware(verifyToken), async (req: Request, res: Response, next: NextFunction) => {
+router.get("/", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const users = await UserBL.getAll();
     res.status(200).json({
