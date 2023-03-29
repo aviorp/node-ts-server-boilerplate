@@ -1,0 +1,16 @@
+{
+	"name": "chromium-lambda",
+	"version": "1.0.0",
+	"description": ,
+	"main": "index.mjs",
+	"scripts": {},
+	"keywords": [],
+	"author": "Papito",
+	"license": "MIT",
+	"dependencies": {
+		"@sparticuz/chromium": "^114.0.0",
+		"playwright": "^1.35.0",
+		"playwright-aws-lambda": "^0.10.0",
+		"playwright-core": "^1.35.0"
+	}
+}

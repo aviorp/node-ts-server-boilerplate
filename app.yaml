@@ -1,0 +1,15 @@
+version: "3.4" # optional since v1.27.0
+services:
+  server:
+    container_name: server
+    image: shuttlelink/server
+    env_file: ./.env
+    ports:
+      - 80:3300
+  watchtower:
+    container_name: watchtower
+    restart: always
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --cleanup --interval 30

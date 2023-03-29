@@ -1,37 +1,37 @@
-import { ErrorRequestHandler, NextFunction, Request, Response } from "express";
-import { UserFacingError } from "./base";
+import { type ErrorRequestHandler, type NextFunction, type Request, type Response } from 'express';
+import { UserFacingError } from './base.js';
+import { consola } from 'consola';
 export class BadRequestError extends UserFacingError {
-  get statusCode() {
-    return 400;
-  }
+  readonly statusCode = 400;
 }
 
 export class NotFoundError extends UserFacingError {
-  get statusCode() {
-    return 404;
-  }
+  readonly statusCode = 404;
 }
 export class UnauthorizedError extends UserFacingError {
-  get statusCode() {
-    return 401;
-  }
+  readonly statusCode = 401;
 }
 export class ForbiddenError extends UserFacingError {
-  get statusCode() {
-    return 403;
-  }
+  readonly statusCode = 403;
 }
 
 export const errorHandler: ErrorRequestHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
-  if (err) {
+  consola.error(err.message);
+  if (err.message === 'Unauthenticated') {
+    return res.status(401).json({
+      state: 'error',
+      message: 'You are not authenticated. (401)',
+    });
+  }
+  if (err instanceof UserFacingError) {
     return res.status(400).json({
-      state: "error",
-      message: err.message || "Something went wrong.",
-    }); // Bad request
+      state: 'error',
+      message: err.message ?? 'Unable to process your request. (400)',
+    });
   } else {
     res.status(500).json({
-      state: "error",
-      message: "Something went wrong.",
+      state: 'error',
+      message: 'Something went wrong... Please try again later. (500)',
     });
   }
   next();

@@ -1,4 +1,6 @@
-.env
 .DS_Store
-node_modules
 /dist
+node_modules/
+/.env.local
+/terraform/.terraform
+/terraform/.terraform.lock.hcl

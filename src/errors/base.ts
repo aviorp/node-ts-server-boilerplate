@@ -13,25 +13,17 @@ class ApplicationError extends Error {
     }
   }
 
-  get name() {
+  get name(): string {
     return this.constructor.name;
   }
 }
 
 export class DatabaseError extends ApplicationError {
-  get statusCode() {
-    return 500;
-  }
+  readonly statusCode = 500;
 }
 
 export class ServerError extends ApplicationError {
-  get statusCode() {
-    return 500;
-  }
+  readonly statusCode = 500;
 }
 
-export class UserFacingError extends ApplicationError {
-  get statusCode() {
-    return 400;
-  }
-}
+export class UserFacingError extends ApplicationError { }

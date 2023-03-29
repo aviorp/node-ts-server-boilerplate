@@ -1,0 +1,23 @@
+# NOT COMPLETED YET
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-node-ts-Server
+spec:
+  replicas: 3 # number of desired replicas
+  selector:
+    matchLabels:
+      app: dist
+  template:
+    metadata:
+      labels:
+        app: dist
+    spec:
+      containers:
+        - name: k8s-node-ts-Server
+          image: aviorp/node-ts-server
+          ports:
+            - containerPort: 3300 # the port that the container listens on
+          env:
+            - name: NODE_ENV
+              value: dev # set the NODE_ENV environment variable
