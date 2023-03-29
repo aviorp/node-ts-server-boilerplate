@@ -54,7 +54,7 @@ The project is structured in a modular way, with each component separated into i
 
 ## Getting Started
 
-If you'd like to get started with this project, simply clone the repository and follow the README instructions. Ensure that you have all the necessary dependencies installed, and then start modifying the project to meet your needs. Happy codi
+If you'd like to get started with this project, simply clone the repository and follow the README instructions. Ensure that you have all the necessary dependencies installed, and then start modifying the project to meet your needs. Happy coding !
 
 ## License
 
