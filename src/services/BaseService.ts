@@ -16,7 +16,10 @@ export default class BaseService {
   }
   create(payload) {
     return prisma[this.model].create({
-      data: payload,
+      data: {
+        ...payload,
+        created_at: new Date().toISOString(),
+      },
     });
   }
   update(id, payload = {}) {
