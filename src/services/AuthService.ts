@@ -14,7 +14,7 @@ class AuthService {
   }
   generateToken(user: UserI) {
     return jwt.sign(JSON.parse(JSON.stringify(user)), config.jwtSecret, {
-      expiresIn: 600000,
+      expiresIn: "1h",
     });
   }
 
@@ -29,7 +29,6 @@ class AuthService {
     if (signedUser.password) {
       delete signedUser.password;
     }
-
     return this.generateToken(user);
   }
 }

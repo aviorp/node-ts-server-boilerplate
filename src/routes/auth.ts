@@ -43,6 +43,7 @@ router.post("/login", async (req: Request, res: Response, next: NextFunction) =>
     const token = await AuthBL.login(username, password);
     const user = await decodeToken(token);
     req.app.set("user", user);
+    req.app.set("token", token);
     if (!token) {
       throw new Error("Invalid username or password.");
     }
@@ -52,7 +53,7 @@ router.post("/login", async (req: Request, res: Response, next: NextFunction) =>
       token,
     });
   } catch (error: any) {
-    next(new BadRequestError("Username or Password Are Invalid."));
+    next(new BadRequestError(error.message || "Username or Password Are Invalid."));
   }
 });
 

@@ -1,47 +1,23 @@
+import { UserI } from "./../interfaces/index";
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import config from "../config";
 import { ForbiddenError, NotFoundError, UnauthorizedError } from "../errors";
 
-/**
- * This Class is responsible for the authentication of the user.
- * @class Auth Middleware Class for the authentication of the user.
- */
-class Auth {
-  verifyUser(req: Request, res: Response, next: NextFunction) {
-    const token = req.header("authorization");
-    if (!token) {
-      return next(new UnauthorizedError("Token not found"));
-    }
-    jwt.verify(token, config.jwtSecret, (err, auth) => {
-      if (err) {
-        return next(new UnauthorizedError("Invalid token"));
-      }
-      if (!auth) {
-        return next(new UnauthorizedError("User not authorized"));
-      }
-      next();
-    });
+export const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
+  const token = req.app.get("token");
+  if (!token) {
+    return next(new UnauthorizedError("Token not found"));
   }
-  /**
-   * This function check if user can continue to protected routes (Administrators).
-   */
-  verifyAdmin(req, res, next) {
-    const token = req.header("authorization");
-    if (!token) {
-      return next(new NotFoundError("Token not found"));
-    }
-    jwt.verify(token, config.jwtSecret, (err, auth) => {
-      if (err) {
-        return next(new UnauthorizedError("Invalid token"));
-      } else {
-        if (!auth?.isAdmin) {
-          return next(new ForbiddenError("User not authorized"));
-        }
-        next();
-      }
-    });
+  try {
+    await jwt.verify(token, config.jwtSecret);
+    next();
+  } catch (error) {
+    return next(new UnauthorizedError("Invalid token"));
   }
-}
+};
 
-export default new Auth();
+export const verifyAdmin = (req, res, next) => {
+  const { is_admin } = req.app.get("user") as UserI;
+  return is_admin ? next() : next(new ForbiddenError("User Forbidden"));
+};
