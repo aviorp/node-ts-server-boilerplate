@@ -59,3 +59,5 @@ If you'd like to get started with this project, simply clone the repository and 
 ## License
 
 The project is open source and released under the MIT License. This means that anyone can use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the software, subject to certain conditions. See the LICENSE file for more information.
+
+If you found this project helpful or interesting, please give it a star on GitHub! It helps to increase visibility and encourages further development. Thank you!
