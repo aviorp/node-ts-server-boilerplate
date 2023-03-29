@@ -1,3 +1,4 @@
+import { verifyToken } from "./../middlewares/auth";
 import express, { NextFunction, Request, Response } from "express";
 import { UserBL } from "../business";
 import { BadRequestError } from "../errors";
@@ -10,9 +11,22 @@ const router = express.Router();
  * Gets all the users in the api.
  * @returns All The users in the api.
  */
-router.get("/", async (req: Request, res: Response, next: NextFunction) => {
+router.get("/", useMiddleware(verifyToken), async (req: Request, res: Response, next: NextFunction) => {
   try {
     const users = await UserBL.getAll();
+    res.status(200).json({
+      state: "success",
+      data: users,
+    });
+  } catch (error: any) {
+    next(new BadRequestError(error.message));
+  }
+});
+
+router.get("/search", async (req: Request, res: Response, next: NextFunction) => {
+  const text = req.query["text"];
+  try {
+    const users = await UserBL.search(text as string);
     res.status(200).json({
       state: "success",
       data: users,
@@ -34,7 +48,7 @@ router.post("/", useMiddleware(userIsNull), async (req: Request, res: Response, 
       message: "User Created.",
     });
   } catch (error: any) {
-    next(new BadRequestError(error));
+    next(new BadRequestError(error.message));
   }
 });
 
@@ -51,7 +65,7 @@ router.get("/:id", useMiddleware(requiredId), async (req: Request, res: Response
       data: user,
     });
   } catch (error: any) {
-    next(new BadRequestError(error));
+    next(new BadRequestError(error.message));
   }
 });
 
@@ -68,7 +82,7 @@ router.put("/:id", useMiddleware([requiredId, userExist]), async (req: Request, 
       message: "User Updated",
     });
   } catch (error: any) {
-    next(new BadRequestError(error));
+    next(new BadRequestError(error.message));
   }
 });
 
@@ -85,7 +99,7 @@ router.delete("/:id", useMiddleware(requiredId), async (req: Request, res: Respo
       message: "User Deleted",
     });
   } catch (error: any) {
-    next(new BadRequestError(error));
+    next(new BadRequestError(error.message));
   }
 });
 
