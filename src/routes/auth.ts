@@ -2,7 +2,7 @@ import express, { NextFunction, Request, Response } from "express";
 import { AuthBL } from "../business";
 import { BadRequestError } from "../errors";
 import { userIsNull } from "../middlewares/requirements";
-
+import { decodeToken } from "../utils";
 import { useMiddleware } from "../middlewares";
 
 const router = express.Router();
@@ -41,6 +41,8 @@ router.post("/login", async (req: Request, res: Response, next: NextFunction) =>
       throw new Error("Missing username or password.");
     }
     const token = await AuthBL.login(username, password);
+    const user = await decodeToken(token);
+    req.app.set("user", user);
     if (!token) {
       throw new Error("Invalid username or password.");
     }
