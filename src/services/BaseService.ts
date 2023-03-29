@@ -37,4 +37,25 @@ export default class BaseService {
       },
     });
   }
+
+  search(query) {
+    return prisma[this.model].findMany({
+      where: {
+        OR: [
+          {
+            first_name: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+          {
+            username: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+        ],
+      },
+    });
+  }
 }

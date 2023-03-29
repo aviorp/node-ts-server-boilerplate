@@ -13,6 +13,10 @@ class UserBL {
     return UserService.getById(id);
   }
 
+  getByUsername(username: string) {
+    return UserService.getByUsername(username);
+  }
+
   create(newUser: UserI) {
     return UserService.create(newUser);
   }
@@ -21,6 +25,9 @@ class UserBL {
   }
   delete(user: string) {
     return UserService.delete(user);
+  }
+  search(query: string) {
+    return UserService.search(query);
   }
 }
 
