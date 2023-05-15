@@ -15,6 +15,6 @@ export const corsOptions = {
 };
 
 export const decodeToken = (token: string) => {
-  const decoded = jwt.verify(token, config.jwtSecret as string);
+  const decoded = jwt.verify(token, config.JWT_SECRET as string);
   return decoded;
 };

@@ -13,7 +13,7 @@ class AuthService {
     return compareSync(userPassword, hashedPassword);
   }
   generateToken(user: UserI) {
-    return jwt.sign(JSON.parse(JSON.stringify(user)), config.jwtSecret, {
+    return jwt.sign(JSON.parse(JSON.stringify(user)), config.JWT_SECRET, {
       expiresIn: "1h",
     });
   }
