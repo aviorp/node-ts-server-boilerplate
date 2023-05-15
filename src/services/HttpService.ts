@@ -5,7 +5,7 @@ import morgan from "morgan";
 import { Server } from "socket.io";
 import swaggerUi from "swagger-ui-express";
 import { errorHandler, NotFoundError } from "../errors";
-import routes from "../routes";
+import controllers from "../controllers";
 import swaggerConfig from "../swaggerConfig";
 import { initDatabase } from "./../db/index";
 
@@ -31,21 +31,21 @@ class HttpService {
     });
   }
 
-  async useRoutes() {
-    routes.forEach(({ path, module }) => {
+  async useControllers() {
+    controllers.forEach(({ path, module }) => {
       this.app.use(path, module);
     });
   }
 
   initApp(port) {
     this.useDefaultMiddlewares();
-    const server = this.app.listen(port, () => console.log(`Server is running on port ${port}`));
+    const server = this.app.listen(port, () => console.log("\x1b[32m%s\x1b[0m", "✔️", `Server is running on port ${port}`));
     new Server(server);
   }
 
   useApi() {
     this.useSwagger();
-    this.useRoutes();
+    this.useControllers();
     this.use404ErrorHandler();
     this.app.use(errorHandler);
     initDatabase();

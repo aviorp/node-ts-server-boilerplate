@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import "./prisma";
+// import "./prisma";
 const wrap = (fn) => async (req: Request, res: Response, next: NextFunction) => fn(req, res, next);
 
 export const useMiddleware = (middlewares: any[] | Function) => {

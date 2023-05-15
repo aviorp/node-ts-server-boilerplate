@@ -1,4 +1,4 @@
-import { verifyToken } from "./../middlewares/auth";
+import { verifyToken } from "../middlewares/auth";
 import express, { NextFunction, Request, Response } from "express";
 import { UserBL } from "../business";
 import { BadRequestError } from "../errors";
