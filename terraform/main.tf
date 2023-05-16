@@ -11,19 +11,21 @@ provider "aws" {
   region = "us-east-1"
 }
 
-resource "aws_instance" "instance"{
-  ami = "ami-0dc2d3e4c0f9ebd18"
-  instance_type = "t2.micro"
+resource "aws_instance" "instance" {
+  ami                    = "ami-0dba2cb6798deb6d8"
+  instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.instance.id]
+
+  user_data = file("init_instance.sh")
   tags = {
     Name = "Backend Instance (Terraform)"
   }
 }
 
-resource "aws_security_group" "instance" {  
-  name = "Backend Instance Security Group (Terraform)"
+resource "aws_security_group" "instance" {
+  name        = "Backend Instance Security Group (Terraform)"
   description = "Allow HTTP and SSH inbound traffic (Terrform)"
-ingress {
+  ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
@@ -37,7 +39,7 @@ ingress {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  ingress  {
+  ingress {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
@@ -49,7 +51,7 @@ ingress {
     to_port     = 3300
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-    
+
   }
 
   egress {
@@ -62,4 +64,8 @@ ingress {
   vpc_id = aws_default_vpc.default.id
 }
 
-resource "aws_default_vpc" "default" {}
+resource "aws_default_vpc" "default" {
+  tags = {
+    Name = "Default VPC (Terraform)"
+  }
+}

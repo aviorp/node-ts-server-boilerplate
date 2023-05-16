@@ -1,0 +1,22 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["standard-with-typescript", "airbnb-typescript/base"],
+  "overrides": [],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "strict-boolean-expressions": "off",
+    "import/no-extraneous-dependencies": "warn",
+    "no-new": "off",
+    "@typescript-eslint/strict-boolean-expressions": "warn",
+    "@typescript-eslint/await-thenable": "off",
+    "@typescript-eslint/naming-convention": "off"
+  },
+  "ignorePatterns": ["**/dist/*", "**/node_modules/*"]
+}

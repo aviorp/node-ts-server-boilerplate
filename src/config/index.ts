@@ -1,4 +1,4 @@
-import "dotenv/config";
+import 'dotenv/config';
 /**
  * exporting the config object to be used in the application.
  * @exports config
@@ -11,7 +11,7 @@ import "dotenv/config";
 
 export default {
   env: process.env.NODE_ENV,
-  port: +process.env.PORT! as number,
+  port: process.env.PORT ?? 3300,
   DB_URI: process.env.DB_URI as string,
   JWT_SECRET: process.env.JWT_SECRET as string,
   awsBucketName: process.env.AWS_BUCKET_NAME as string,

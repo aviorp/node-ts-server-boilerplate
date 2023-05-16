@@ -1,11 +1,12 @@
-import { prisma } from "./../db/";
-import BaseService from "./BaseService";
+import { prisma } from './../db/';
+import BaseService from './BaseService';
 
 class UserService extends BaseService {
   constructor() {
-    super("user");
+    super('user');
   }
-  getByUsername(username: string) {
+
+  async getByUsername(username: string): Promise<any> {
     return prisma.user.findFirst({
       where: {
         username,

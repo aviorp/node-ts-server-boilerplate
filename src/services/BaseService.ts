@@ -1,20 +1,25 @@
-import { prisma } from "./../db";
+import { type UserI } from '../interfaces';
+import { prisma } from './../db';
 export default class BaseService {
   model: string;
+
   constructor(model: string) {
     this.model = model;
   }
-  getAll() {
+
+  getAll(): UserI[] {
     return prisma[this.model].findMany();
   }
-  getById(id: string) {
+
+  getById(id: string): UserI {
     return prisma[this.model].findUnique({
       where: {
         id,
       },
     });
   }
-  create(payload) {
+
+  create(payload): UserI {
     return prisma[this.model].create({
       data: {
         ...payload,
@@ -22,7 +27,8 @@ export default class BaseService {
       },
     });
   }
-  update(id, payload = {}) {
+
+  update(id, payload = {}): UserI {
     return prisma[this.model].update({
       where: {
         id,
@@ -30,7 +36,8 @@ export default class BaseService {
       data: payload,
     });
   }
-  delete(id) {
+
+  delete(id): void {
     return prisma[this.model].delete({
       where: {
         id,
@@ -38,20 +45,20 @@ export default class BaseService {
     });
   }
 
-  search(query) {
+  search(query): UserI[] {
     return prisma[this.model].findMany({
       where: {
         OR: [
           {
             first_name: {
               contains: query,
-              mode: "insensitive",
+              mode: 'insensitive',
             },
           },
           {
             username: {
               contains: query,
-              mode: "insensitive",
+              mode: 'insensitive',
             },
           },
         ],

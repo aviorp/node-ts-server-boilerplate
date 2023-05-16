@@ -1,17 +1,17 @@
-import auth from "./auth";
-import general from "./general";
-import users from "./user";
+import auth from './auth';
+import general from './general';
+import users from './user';
 export default [
   {
-    path: "/",
+    path: '/',
     module: general,
   },
   {
-    path: "/auth",
+    path: '/auth',
     module: auth,
   },
   {
-    path: "/users",
+    path: '/users',
     module: users,
   },
 ];

@@ -1,13 +1,13 @@
-import { json, urlencoded } from "body-parser";
-import cors from "cors";
-import express, { NextFunction, Request, Response } from "express";
-import morgan from "morgan";
-import { Server } from "socket.io";
-import swaggerUi from "swagger-ui-express";
-import { errorHandler, NotFoundError } from "../errors";
-import controllers from "../controllers";
-import swaggerConfig from "../swaggerConfig";
-import { initDatabase } from "./../db/index";
+import { json, urlencoded } from 'body-parser';
+import cors from 'cors';
+import express, { type NextFunction, type Request, type Response } from 'express';
+import morgan from 'morgan';
+import { Server } from 'socket.io';
+import swaggerUi from 'swagger-ui-express';
+import { errorHandler, NotFoundError } from '../errors';
+import controllers from '../controllers';
+import swaggerConfig from '../swaggerConfig';
+import { initDatabase } from './../db/index';
 
 /**
  * This Class is responsible for the init and run of the server.
@@ -15,60 +15,69 @@ import { initDatabase } from "./../db/index";
  */
 class HttpService {
   app;
+
   constructor() {
     this.app = express();
   }
 
-  setSettings(settings: object) {
+  setSettings(settings: object): void {
     Object.entries(settings).forEach((key, value) => {
       this.app.set(key, value);
     });
   }
 
-  use404ErrorHandler() {
-    this.app.get("*", (req: Request, res: Response, next: NextFunction) => {
-      next(new NotFoundError(`${req.originalUrl!} not found`));
+  use404ErrorHandler(): void {
+    this.app.get('*', (req: Request, res: Response, next: NextFunction) => {
+      next(new NotFoundError(`${req.originalUrl} not found`));
     });
   }
 
-  async useControllers() {
+  async useControllers(): Promise<void> {
     controllers.forEach(({ path, module }) => {
       this.app.use(path, module);
     });
   }
 
-  initApp(port) {
+  initApp(port: string | number): void {
     this.useDefaultMiddlewares();
-    const server = this.app.listen(port, () => console.log("\x1b[32m%s\x1b[0m", "✔️", `Server is running on port ${port}`));
+    const server = this.app.listen(port, () => {
+      console.log('\x1b[32m%s\x1b[0m', '✔️', `Server is running on port ${port}`);
+    });
     new Server(server);
   }
 
-  useApi() {
-    this.useSwagger();
-    this.useControllers();
-    this.use404ErrorHandler();
-    this.app.use(errorHandler);
-    initDatabase();
+  async useApi(): Promise<void> {
+    try {
+      await initDatabase();
+      await this.useControllers();
+      this.useSwagger();
+      this.use404ErrorHandler();
+      this.app.use(errorHandler);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  useDefaultMiddlewares() {
-    this.app.use(morgan("tiny"));
-    this.app.use(json({ limit: "50mb" }));
+  useDefaultMiddlewares(): void {
+    this.app.use(morgan('tiny'));
+    this.app.use(json({ limit: '50mb' }));
     this.app.use(cors());
     this.app.use(
       urlencoded({
-        limit: "50mb",
+        limit: '50mb',
         extended: true,
-      })
+      }),
     );
   }
-  useSwagger() {
-    this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerConfig));
+
+  useSwagger(): void {
+    this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerConfig));
   }
-  start(port: number = 3300, settings: object = {}) {
+
+  async start(port: number = 3300, settings: object = {}): Promise<void> {
+    await this.useApi();
     this.setSettings(settings);
     this.initApp(port);
-    this.useApi();
   }
 }
 
