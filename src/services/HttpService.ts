@@ -1,13 +1,13 @@
+import { initDatabase } from '@/db/index';
 import { json, urlencoded } from 'body-parser';
-import cors from 'cors';
+// import cors from 'cors';
 import express, { type NextFunction, type Request, type Response } from 'express';
 import morgan from 'morgan';
-import { Server } from 'socket.io';
 import swaggerUi from 'swagger-ui-express';
-import { errorHandler, NotFoundError } from '../errors';
-import controllers from '../controllers';
-import swaggerConfig from '../swaggerConfig';
-import { initDatabase } from './../db/index';
+import { errorHandler, NotFoundError } from '@/errors';
+import controllers from '@/controllers';
+import swaggerConfig from '@/swaggerConfig';
+import logger from '@/utils/logger';
 
 /**
  * This Class is responsible for the init and run of the server.
@@ -28,40 +28,26 @@ class HttpService {
 
   use404ErrorHandler(): void {
     this.app.get('*', (req: Request, res: Response, next: NextFunction) => {
-      next(new NotFoundError(`${req.originalUrl} not found`));
+      next(new NotFoundError("This route doesn't exist, please check your URL." + req.originalUrl, '404'));
     });
   }
 
-  async useControllers(): Promise<void> {
-    controllers.forEach(({ path, module }) => {
+  useControllers(): void {
+    controllers.forEach(({ path, module }: any) => {
       this.app.use(path, module);
     });
   }
 
-  initApp(port: string | number): void {
-    this.useDefaultMiddlewares();
-    const server = this.app.listen(port, () => {
-      console.log('\x1b[32m%s\x1b[0m', '✔️', `Server is running on port ${port}`);
-    });
-    new Server(server);
-  }
-
-  async useApi(): Promise<void> {
-    try {
-      await initDatabase();
-      await this.useControllers();
-      this.useSwagger();
-      this.use404ErrorHandler();
-      this.app.use(errorHandler);
-    } catch (error) {
-      console.log(error);
-    }
+  useApi(): void {
+    this.useControllers();
+    this.useSwagger();
+    this.use404ErrorHandler();
+    this.app.use(errorHandler);
   }
 
   useDefaultMiddlewares(): void {
-    this.app.use(morgan('tiny'));
+    this.app.use(morgan('dev'));
     this.app.use(json({ limit: '50mb' }));
-    this.app.use(cors());
     this.app.use(
       urlencoded({
         limit: '50mb',
@@ -75,9 +61,13 @@ class HttpService {
   }
 
   async start(port: number = 3300, settings: object = {}): Promise<void> {
-    await this.useApi();
+    this.useDefaultMiddlewares();
+    this.useApi();
     this.setSettings(settings);
-    this.initApp(port);
+    await initDatabase();
+    this.app.listen(port, () => {
+      logger.success(`Server is running on port ${port}`);
+    });
   }
 }
 

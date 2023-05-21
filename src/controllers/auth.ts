@@ -1,11 +1,11 @@
-import express, { type NextFunction, type Request, type Response, type RequestHandler } from 'express';
-import { AuthBL } from '../business';
-import { BadRequestError } from '../errors';
-import { userIsNull } from '../middlewares/requirements';
-import { decodeToken } from '../utils';
-import { useMiddleware } from '../middlewares';
+import { type Request, type Response } from 'express';
+import { AuthBL } from '@/BL';
+import { userIsNull } from '@/middlewares/requirements';
+import { decodeToken } from '@/utils';
+import { useMiddleware } from '@/middlewares';
+import { createRouter } from '@/utils/createRouter';
 
-const router = express.Router();
+const router = createRouter();
 
 /**
  * Register a new user.
@@ -14,17 +14,14 @@ const router = express.Router();
  * @returns The user with the given username.
  * @returns The message.
  */
-router.post('/register', useMiddleware(userIsNull), (async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    await AuthBL.register(req.body);
-    return res.status(201).json({
-      state: 'success',
-      message: 'User Created.',
-    });
-  } catch (error: any) {
-    next(new BadRequestError('Failed to create user.'));
-  }
-}) as RequestHandler);
+
+router.post('/register', useMiddleware(userIsNull), async (req: Request, res: Response) => {
+  await AuthBL.register(req.body);
+  return res.status(201).json({
+    state: 'success',
+    message: 'User Created.',
+  });
+});
 
 /**
  * Login a user.
@@ -34,24 +31,20 @@ router.post('/register', useMiddleware(userIsNull), (async (req: Request, res: R
  * @returns The message.
  * @returns The token.
  */
-router.post('/login', (async (req: Request, res: Response, next: NextFunction) => {
+router.post('/login', async (req: Request, res: Response) => {
   const { username, password } = req.body;
-  if (username === '' || password === '') {
+  if (!username || !password) {
     throw new Error('Missing username or password.');
   }
-  try {
-    const token = await AuthBL.login(username, password);
-    const user = decodeToken(token);
-    res.app.set('token', token);
-    res.app.set('user', user);
-    return res.status(201).json({
-      state: 'success',
-      message: 'User Logged In.',
-      token,
-    });
-  } catch (error: any) {
-    next(new BadRequestError('Username or Password Are Invalid.'));
-  }
-}) as RequestHandler);
+  const token = await AuthBL.login(username, password);
+  const user = decodeToken(token);
+  res.app.set('token', token);
+  res.app.set('user', user);
+  return res.status(201).json({
+    state: 'success',
+    message: 'User Logged In.',
+    token,
+  });
+});
 
 export default router;

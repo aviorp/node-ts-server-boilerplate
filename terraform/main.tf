@@ -16,7 +16,7 @@ resource "aws_instance" "instance" {
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.instance.id]
 
-  user_data = file("init_instance.sh")
+  # user_data = file("init_instance.sh")
   tags = {
     Name = "Backend Instance (Terraform)"
   }

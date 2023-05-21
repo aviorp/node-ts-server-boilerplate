@@ -1,5 +1,6 @@
 import { type ErrorRequestHandler, type NextFunction, type Request, type Response } from 'express';
 import { UserFacingError } from './base';
+import logger from '@/utils/logger';
 export class BadRequestError extends UserFacingError {
   readonly statusCode = 400;
 }
@@ -15,15 +16,16 @@ export class ForbiddenError extends UserFacingError {
 }
 
 export const errorHandler: ErrorRequestHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
+  logger.error(err);
   if (err instanceof UserFacingError) {
     return res.status(400).json({
       state: 'error',
-      message: err.message ?? 'Something went wrong.',
+      message: err.message ?? 'Something went wrong... (400)',
     }); // Bad request
   } else {
     res.status(500).json({
       state: 'error',
-      message: 'Something went wrong.',
+      message: 'Something went wrong... Please try again later. (500)',
     });
   }
   next();

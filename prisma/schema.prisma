@@ -1,6 +1,6 @@
 generator client {
-  provider      = "prisma-client-js"
-  binaryTargets = ["native", "darwin"]
+  provider        = "prisma-client-js"
+  binaryTargets   = ["native", "darwin"]
 }
 
 datasource db {
@@ -14,7 +14,8 @@ model User {
   last_name  String
   password   String
   image      String
-  username   String
+  username   String   @unique
   is_admin   Boolean? @default(false)
   created_at String?
 }
+

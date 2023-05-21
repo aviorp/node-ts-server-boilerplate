@@ -1,7 +1,7 @@
 import { compareSync } from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import config from '../config/index';
-import { type UserI } from '../interfaces';
+import config from '@/config';
+import { type UserI } from '@/interfaces';
 import UserService from './UserService';
 
 /**
@@ -19,7 +19,7 @@ class AuthService {
     });
   }
 
-  async register(newUser: UserI): Promise<UserI> {
+  async register(newUser: UserI): Promise<void> {
     return UserService.create(newUser);
   }
 

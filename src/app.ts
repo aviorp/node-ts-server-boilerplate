@@ -7,4 +7,6 @@ import settings from './utils/settings';
  * @class HttpService - Application bootstrap file
  * @method start - Starts the server
  */
-HttpService.start(+config?.port ?? 3300, settings);
+
+// eslint-disable-next-line
+ HttpService.start(+config?.port ?? 3300, settings);

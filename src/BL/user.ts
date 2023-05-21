@@ -6,8 +6,8 @@ import { UserService } from '../services';
  * @class User Business Logic Class for the user endpoint.
  */
 class UserBL {
-  async getAll(): Promise<UserI[]> {
-    return UserService.getAll();
+  async getAll(filters): Promise<UserI[]> {
+    return UserService.getAll(filters);
   }
 
   async getById(id: string): Promise<UserI | null> {
@@ -18,7 +18,7 @@ class UserBL {
     return UserService.getByUsername(username);
   }
 
-  async create(newUser: UserI): Promise<UserI> {
+  async create(newUser: UserI): Promise<void> {
     return UserService.create(newUser);
   }
 
@@ -28,10 +28,6 @@ class UserBL {
 
   async delete(user: string): Promise<void> {
     UserService.delete(user);
-  }
-
-  async search(query: string): Promise<UserI[]> {
-    return UserService.search(query);
   }
 }
 

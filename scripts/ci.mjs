@@ -1,6 +1,6 @@
 #!/usr/bin/env zx
-import { requiredEnvVars } from "./constants.mjs";
-console.log("CI script started");
+import { requiredEnvVars } from './constants.mjs';
+console.log('CI script started');
 
 requiredEnvVars.forEach((envVar) => {
   if (!process.env[envVar]) {
@@ -8,6 +8,6 @@ requiredEnvVars.forEach((envVar) => {
   }
 });
 
-console.log("All required environment variables are defined");
+console.log('All required environment variables are defined');
 
-console.log("CI script finished");
+console.log('CI script finished');

@@ -1,11 +1,11 @@
 import S3 from 'aws-sdk/clients/s3';
 import fs from 'fs';
-import config from '../config';
+import config from '@/config';
 
-const bucketName = config.awsBucketName;
-const region = config.awsBucketRegion;
-const accessKeyId = config.awsAccessKeyId;
-const secretAccessKey = config.awsSecretAccessKey;
+const bucketName = config.AWS_BUCKET_NAME;
+const region = config.AWS_BUCKET_REGION;
+const accessKeyId = config.AWS_ACCESS_KEY_ID;
+const secretAccessKey = config.AWS_SECRET_ACCESS_KEY;
 
 const s3 = new S3({
   region,
@@ -20,7 +20,7 @@ const s3 = new S3({
  *
  */
 export const uploadFileToS3Bucket: any = async (file) => {
-  const fileStream = fs.createReadStream(file.path);
+  const fileStream = fs.createReadStream(file.path, { autoClose: true });
   const uploadParams = {
     Bucket: bucketName,
     Body: fileStream,

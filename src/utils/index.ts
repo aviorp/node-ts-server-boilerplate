@@ -1,5 +1,6 @@
+
 import jwt from 'jsonwebtoken';
-import config from '../config';
+import config from '@/config';
 
 export const toBase64: any = async (file: File) =>
   new Promise((resolve, reject) => {

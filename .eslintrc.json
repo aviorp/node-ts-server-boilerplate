@@ -14,9 +14,14 @@
     "strict-boolean-expressions": "off",
     "import/no-extraneous-dependencies": "warn",
     "no-new": "off",
-    "@typescript-eslint/strict-boolean-expressions": "warn",
+    "@typescript-eslint/strict-boolean-expressions": "off",
     "@typescript-eslint/await-thenable": "off",
-    "@typescript-eslint/naming-convention": "off"
+    "@typescript-eslint/naming-convention": "off",
+    "@typescript-eslint/no-confusing-void-expression": "off",
+    "@typescript-eslint/restrict-template-expressions": "off",
+    "@typescript-eslint/no-misused-promises": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "import/extensions": "off"
   },
   "ignorePatterns": ["**/dist/*", "**/node_modules/*"]
 }

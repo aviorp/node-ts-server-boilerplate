@@ -1,12 +1,12 @@
-import { type UserI } from './../interfaces/index';
 import { type NextFunction, type Request, type Response } from 'express';
+import { type UserI } from '@/interfaces';
 import jwt from 'jsonwebtoken';
-import config from '../config';
-import { ForbiddenError, UnauthorizedError } from '../errors';
+import config from '@/config';
+import { ForbiddenError, UnauthorizedError } from '@/errors';
 
 export const verifyToken: any = async (req: Request, res: Response, next: NextFunction) => {
   const token = req.app.get('token');
-  if (!token) {
+  if (!(token)) {
     next(new UnauthorizedError('Token not found')); return;
   }
   try {

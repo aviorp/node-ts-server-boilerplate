@@ -14,8 +14,8 @@ export default {
   port: process.env.PORT ?? 3300,
   DB_URI: process.env.DB_URI as string,
   JWT_SECRET: process.env.JWT_SECRET as string,
-  awsBucketName: process.env.AWS_BUCKET_NAME as string,
-  awsBucketRegion: process.env.AWS_BUCKET_REGION as string,
-  awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID as string,
-  awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string,
+  AWS_BUCKET_NAME: process.env.AWS_BUCKET_NAME as string,
+  AWS_BUCKET_REGION: process.env.AWS_BUCKET_REGION as string,
+  AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID as string,
+  AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY as string,
 };

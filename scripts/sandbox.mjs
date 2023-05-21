@@ -1,6 +1,6 @@
 #!/usr/bin/env zx
 
-import { getRootPath } from "./utils.mjs";
+import { getRootPath } from './utils.mjs';
 
 try {
   const root = await getRootPath();
