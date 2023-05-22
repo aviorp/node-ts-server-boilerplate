@@ -5,7 +5,7 @@ import express, { type NextFunction, type Request, type Response } from 'express
 import morgan from 'morgan';
 import swaggerUi from 'swagger-ui-express';
 import { errorHandler, NotFoundError } from '@/errors';
-import controllers from '@/controllers';
+import controllers from '@/controllers/v1';
 import swaggerConfig from '@/swaggerConfig';
 import logger from '@/utils/logger';
 

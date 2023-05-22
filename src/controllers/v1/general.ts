@@ -1,5 +1,5 @@
 import { type Request, type Response } from 'express';
-import { deleteFileFromS3Bucket, downloadFileFromS3Bucket, uploadFileToS3Bucket } from '../apis/s3';
+import { deleteFileFromS3Bucket, downloadFileFromS3Bucket, uploadFileToS3Bucket } from '../../apis/s3';
 import { createRouter } from '@/utils/createRouter';
 const router = createRouter();
 
