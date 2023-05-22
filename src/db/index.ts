@@ -1,7 +1,15 @@
 import logger from '@/utils/logger';
 import { PrismaClient } from '@prisma/client';
 
-export const prisma = new PrismaClient();
+export const prisma = new PrismaClient({
+  log: ['query', 'info', 'warn'],
+  errorFormat: 'minimal',
+  datasources: {
+    db: {
+      url: process.env.DB_URI,
+    },
+  },
+});
 
 export const initDatabase: any = async () => {
   try {

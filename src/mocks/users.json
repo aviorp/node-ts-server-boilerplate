@@ -1,0 +1,90 @@
+[
+  {
+    "id": "643fc444f9fa973de00f4cda",
+    "first_name": "Norbie",
+    "last_name": "Ludy",
+    "password": "hjix2Rt",
+    "image": "string",
+    "username": "nludy1d",
+    "is_admin": true,
+    "user_type": "user",
+    "created_at": "2023-04-19T10:36:52.831Z"
+  },
+  {
+    "id": "643fc4bf7e66f14dc5337035",
+    "first_name": "Norbie 2",
+    "last_name": "Ludy 2",
+    "password": "hjix2Rt",
+    "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA…",
+    "username": "nludy1d22",
+    "is_admin": true,
+    "user_type": "user",
+    "created_at": "2023-04-19T10:38:55.648Z"
+  },
+  {
+    "id": "643fc4d47e66f14dc5337036",
+    "first_name": "Norbie 23",
+    "last_name": "Ludy 23",
+    "password": "hjix2Rt",
+    "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA…",
+    "username": "nludy1d223",
+    "is_admin": true,
+    "user_type": "user",
+    "created_at": "2023-04-19T10:39:16.047Z"
+  },
+  {
+    "id": "643fc50e7e66f14dc5337038",
+    "first_name": "Norbie 23333",
+    "last_name": "Ludy 233",
+    "password": "hjix2Rt",
+    "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA…",
+    "username": "nludy1d2233333",
+    "is_admin": true,
+    "user_type": "user",
+    "created_at": "2023-04-19T10:40:14.933Z"
+  },
+  {
+    "id": "643fc5657e66f14dc5337039",
+    "first_name": "Pakalu Papito",
+    "last_name": "Papito",
+    "password": "hjix2Rt",
+    "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA…",
+    "username": "nludy1d22333q33",
+    "is_admin": true,
+    "user_type": "user",
+    "created_at": "2023-04-19T10:41:41.487Z"
+  },
+  {
+    "id": "643fc6457e66f14dc533703a",
+    "first_name": "Pakalu",
+    "last_name": "Ludy 233",
+    "password": "hjix2Rt",
+    "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA…",
+    "username": "nludy1d22333q333",
+    "is_admin": true,
+    "user_type": "user",
+    "created_at": "2023-04-19T10:45:25.651Z"
+  },
+  {
+    "id": "646208f10307ee3d1684fe79",
+    "first_name": "string",
+    "last_name": "string",
+    "password": "$2a$10$uaVaeRtLAh7ODycZypRaSesvOke6rFyPTSBmce2BINI7eiiFO.C3u",
+    "image": "string",
+    "username": "string2",
+    "is_admin": false,
+    "user_type": "user",
+    "created_at": "2023-05-15T10:26:57.369Z"
+  },
+  {
+    "id": "64622522bcd22c104488876d",
+    "first_name": "Norbie2",
+    "last_name": "Ludy",
+    "password": "hjix2Rt",
+    "image": "string",
+    "username": "nludy1d2",
+    "is_admin": true,
+    "user_type": "user",
+    "created_at": "2023-05-15T12:27:14.373Z"
+  }
+]

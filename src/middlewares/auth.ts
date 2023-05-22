@@ -1,5 +1,5 @@
 import { type NextFunction, type Request, type Response } from 'express';
-import { type UserI } from '@/interfaces';
+import { type User } from '@prisma/client';
 import jwt from 'jsonwebtoken';
 import config from '@/config';
 import { ForbiddenError, UnauthorizedError } from '@/errors';
@@ -18,6 +18,6 @@ export const verifyToken: any = async (req: Request, res: Response, next: NextFu
 };
 
 export const verifyAdmin: any = (req, res, next) => {
-  const { is_admin } = req.app.get('user') as UserI;
+  const { is_admin } = req.app.get('user') as User;
   return is_admin ? next() : next(new ForbiddenError('User Forbidden'));
 };

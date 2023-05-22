@@ -8,17 +8,17 @@ interface Route {
 }
 const V1Routes: Route[] = [];
 
-const files = FastGlob.sync('./*.ts', {
+const files = FastGlob.sync('./**/index.ts', {
   cwd: __dirname,
-  ignore: ['index.ts'],
+  ignore: ['./index.ts'],
 });
 
 for (const file of files) {
-  const shortenedFile = file.replace('.ts', '');
+  const shortenedFile = file.replace('index.ts', '');
   const module = require(`./${file}`).default;
-  const path = shortenedFile === 'general' ? '/' : `/${shortenedFile}`;
-  const V1Path = `/api/v1${path}`;
-  V1Routes.push({ path: V1Path, module });
+  const path = shortenedFile === 'common' ? '/' : `/${shortenedFile}`;
+  const path_v1 = `/api/v1${path}`;
+  V1Routes.push({ path: path_v1, module });
 }
 
 export default V1Routes;

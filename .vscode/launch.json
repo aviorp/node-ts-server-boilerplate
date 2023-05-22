@@ -7,7 +7,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
+      "name": "Run Typescript App",
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}\\src\\app.ts",
       "preLaunchTask": "tsc: build - tsconfig.json",

@@ -15,10 +15,9 @@ resource "aws_instance" "instance" {
   ami                    = "ami-0dba2cb6798deb6d8"
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.instance.id]
-
-  # user_data = file("init_instance.sh")
+  user_data = file("init_instance.sh")
   tags = {
-    Name = "Backend Instance (Terraform)"
+    Name = "Shuttle Link Server (Terraform)"
   }
 }
 

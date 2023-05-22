@@ -1,5 +1,5 @@
 import { type Request, type Response } from 'express';
-import { AuthBL } from '@/BL';
+import AuthBL from './BL';
 import { userIsNull } from '@/middlewares/requirements';
 import { decodeToken } from '@/utils';
 import { useMiddleware } from '@/middlewares';

@@ -1,6 +1,6 @@
-import config from './config';
-import { HttpService } from './services';
-import settings from './utils/settings';
+import config from '@/config';
+import HttpService from '@/services/HttpService';
+import settings from '@/utils/settings';
 
 /**
  * This file is responsible for the init of the backend.

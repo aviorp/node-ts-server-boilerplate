@@ -20,8 +20,8 @@ export const errorHandler: ErrorRequestHandler = (err: any, req: Request, res: R
   if (err instanceof UserFacingError) {
     return res.status(400).json({
       state: 'error',
-      message: err.message ?? 'Something went wrong... (400)',
-    }); // Bad request
+      message: err.message ?? 'Unable to process your request. (400)',
+    });
   } else {
     res.status(500).json({
       state: 'error',

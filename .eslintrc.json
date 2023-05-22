@@ -20,6 +20,7 @@
     "@typescript-eslint/no-confusing-void-expression": "off",
     "@typescript-eslint/restrict-template-expressions": "off",
     "@typescript-eslint/no-misused-promises": "off",
+    "@typescript-eslint/no-shadow": "off",
     "@typescript-eslint/ban-ts-comment": "off",
     "import/extensions": "off"
   },

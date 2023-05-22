@@ -20,7 +20,7 @@ const s3 = new S3({
  *
  */
 export const uploadFileToS3Bucket: any = async (file) => {
-  const fileStream = fs.createReadStream(file.path, { autoClose: true });
+  const fileStream = fs.createReadStream(file.path);
   const uploadParams = {
     Bucket: bucketName,
     Body: fileStream,

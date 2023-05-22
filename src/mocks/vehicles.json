@@ -1,0 +1,101 @@
+[
+  {
+    "name": "Vehicle 1",
+    "image": "https://example.com/image1.jpg",
+    "model": "Model A",
+    "driver_id": "63f3fb42fc13ae61a1000068",
+    "created_at": "2023-05-22T12:00:00Z",
+    "updated_at": "2023-05-22T12:00:00Z",
+    "seats_number": 4
+  },
+  {
+    "name": "Vehicle 2",
+    "image": "https://example.com/image2.jpg",
+    "model": "Model B",
+    "driver_id": "63f3fb42fc13ae61a1000067",
+    "created_at": "2023-05-22T12:00:00Z",
+    "updated_at": "2023-05-22T12:00:00Z",
+    "seats_number": 4
+  },
+  {
+    "name": "Vehicle 3",
+    "image": "https://example.com/image3.jpg",
+    "model": "Model C",
+    "driver_id": "63f3fb42fc13ae61a1000069",
+    "created_at": "2023-05-22T12:00:00Z",
+    "updated_at": "2023-05-22T12:00:00Z",
+    "seats_number": 4
+  },
+  {
+    "name": "Vehicle 4",
+    "image": "https://example.com/image4.jpg",
+    "model": "Model D",
+    "driver_id": "63f3fb42fc13ae61a1000066",
+    "created_at": "2023-05-22T12:00:00Z",
+    "updated_at": "2023-05-22T12:00:00Z",
+    "seats_number": 4
+  },
+  {
+    "name": "Vehicle 5",
+    "image": "https://example.com/image5.jpg",
+    "model": "Model E",
+    "driver_id": "63f3fb42fc13ae61a100006c",
+    "created_at": "2023-05-22T12:00:00Z",
+    "updated_at": "2023-05-22T12:00:00Z",
+    "seats_number": 4
+  },
+  {
+    "name": "Vehicle 6",
+    "image": "https://example.com/image6.jpg",
+    "model": "Model F",
+    "driver_id": "63f3fb42fc13ae61a1000072",
+    "created_at": "2023-05-22T12:00:00Z",
+    "updated_at": "2023-05-22T12:00:00Z",
+    "seats_number": 4
+  },
+  {
+    "name": "Vehicle 7",
+    "image": "https://example.com/image7.jpg",
+    "model": "Model G",
+    "driver_id": "63f3fb42fc13ae61a100006b",
+    "created_at": "2023-05-22T12:00:00Z",
+    "updated_at": "2023-05-22T12:00:00Z",
+    "seats_number": 4
+  },
+  {
+    "name": "Vehicle 8",
+    "image": "https://example.com/image8.jpg",
+    "model": "Model H",
+    "driver_id": "63f3fb42fc13ae61a1000071",
+    "created_at": "2023-05-22T12:00:00Z",
+    "updated_at": "2023-05-22T12:00:00Z",
+    "seats_number": 4
+  },
+  {
+    "name": "Vehicle 9",
+    "image": "https://example.com/image9.jpg",
+    "model": "Model I",
+    "driver_id": "63f3fb42fc13ae61a1000070",
+    "created_at": "2023-05-22T12:00:00Z",
+    "updated_at": "2023-05-22T12:00:00Z",
+    "seats_number": 4
+  },
+  {
+    "name": "Vehicle 10",
+    "image": "https://example.com/image10.jpg",
+    "model": "Model J",
+    "driver_id": "63f3fb42fc13ae61a100006a",
+    "created_at": "2023-05-22T12:00:00Z",
+    "updated_at": "2023-05-22T12:00:00Z",
+    "seats_number": 4
+  },
+  {
+    "name": "Vehicle 11",
+    "image": "https://example.com/image11.jpg",
+    "model": "Model K",
+    "driver_id": "63f3fb42fc13ae61a100006d",
+    "created_at": "2023-05-22T12:00:00Z",
+    "updated_at": "2023-05-22T12:00:00Z",
+    "seats_number": 4
+  }
+]

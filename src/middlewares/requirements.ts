@@ -1,7 +1,7 @@
 import { type NextFunction, type Request, type Response } from 'express';
 import { ObjectId } from 'mongodb';
 import { BadRequestError, UnauthorizedError } from '@/errors';
-import { UserService } from '@/services';
+import UserService from '@/controllers/v1/users/service';
 
 export const userIsNull: any = async (req: Request, res: Response, next: NextFunction) => {
   const username = req.body.username || req.params.username;

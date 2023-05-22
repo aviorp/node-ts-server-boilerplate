@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# Get the origin URL of the repository
-REPO_URL=$(git remote get-url origin)
-# Extract the repository name from the origin URL
-REPO_NAME=$(echo "$ORIGIN_URL" | sed -e 's/.*\/\([^ ]*\/[^ ]*\)\(\.git\)*$/\1/')
-
-echo "Repository name: $REPO_NAME"
 
 # install and update apt-get
 sudo apt-get update -y
@@ -14,18 +8,36 @@ sudo apt-get update -y
 sudo apt-get install -y docker.io
 sudo systemctl start docker
 sudo systemctl enable docker
-
+sudo chmod -G docker ubuntu
+sudo usermod -a -G docker ubuntu
 # install and update docker-compose
 sudo apt-get install -y docker-compose
 
-sudo git clone "$REPO_URL"
 
-sudo sh -c cd "$REPO_NAME" || exit
 
-sudo cp ./.env home/ubuntu/.env
-sudo cp ./app.yaml home/ubuntu/app.yaml
-sudo sh -c cd .. || exit
 
-sudo rm -rf "$REPO_NAME"
+cat <<EOF > app.yml
+version: "3.4" # optional since v1.27.0
+services:
+  server:
+    container_name: server
+    image: shuttlelink/server
+    env_file: .env
+    ports:
+      - 80:3300
+  watchtower:
+    container_name: watchtower
+    restart: always
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --cleanup --interval 30
+EOF
 
-sudo docker-compose -f app.yaml up
+cat <<EOF > .env
+JWT_SECRET=secret
+DB_URI="mongodb+srv://admin:TagO16AAivmbS7Wx@cluster0.mgw5eqj.mongodb.net/TEST_DB"
+NODE_ENV=DEV
+PORT=3300
+AWS_SDK_JS_SUPPRESS_MAINTENANCE_MODE_MESSAGE=1
+EOF

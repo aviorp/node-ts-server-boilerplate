@@ -1,3 +1,3 @@
 #!/usr/bin/env zx
 
-export const requiredEnvVars = ["username", "password", "image"];
+export const requiredEnvVars = ['USERNAME', 'PASSWORD', 'IMAGE'];

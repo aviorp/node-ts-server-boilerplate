@@ -1,51 +1,37 @@
 import express, { type RequestHandler, type Request, type Response, type NextFunction, type Router, type IRouterMatcher } from 'express';
 import { BadRequestError } from '@/errors';
+import logger from './logger';
 
-interface Filters {
-  search?: string
-  skip?: string | number
-  take?: string | number
-  searchFields?: string[]
-}
 type CrudRouter = {
-  createCrud: (service: any, searchParams: string[]) => void
+  createCrud: (service: any) => void
 } & Router;
 
-export const createCrudRouter: any = (router, service: any, searchFields: string[] = []) => {
+export const createCrudRouter: any = (router, service: any) => {
   router.get('/', async (req: Request, res: Response) => {
-    const { search, skip, take } = req.query;
-    let filters: Filters | object = {
-      searchFields,
-      search,
-      skip,
-      take,
-    };
-    if (searchFields.length <= 0) {
-      filters = {};
-    }
-    const data = await service.getAll(filters);
+    const data = await service.getAll(req);
     res.json({ state: 'success', data });
   });
   router.get('/:id', async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const data = await service.getById(id);
+    const data = await service.getById(req);
     if (!data) {
       res.json({ state: 'success', message: 'Item Not Found.', data: null });
     }
     res.json({ state: 'success', data });
   });
   router.post('/', async (req: Request, res: Response) => {
-    await service.create(req.body);
+    await service.create(req);
     res.json({ state: 'success', message: 'Item Created Successfully.' });
   });
+  router.post('/bulk', async (req: Request, res: Response) => {
+    await service.createBulk(req);
+    res.json({ state: 'success', message: 'Items Created Successfully.' });
+  });
   router.put('/:id', async (req: Request, res: Response) => {
-    const { id } = req.params;
-    await service.update(id, req.body);
+    await service.update(req);
     res.json({ state: 'success', message: 'Item Updated Successfully.' });
   });
   router.delete('/:id', async (req: Request, res: Response) => {
-    const { id } = req.params;
-    await service.delete(id);
+    await service.delete(req);
     res.json({ state: 'success', message: 'Item Deleted Successfully.' });
   });
   return router;
@@ -57,6 +43,7 @@ const wrapper = (handler: any): RequestHandler => {
       if (res.headersSent) return;
       await handler(req, res, next);
     } catch (error: any) {
+      logger.error(error);
       next(new BadRequestError(error.message as string));
     }
   }) as unknown as RequestHandler;
@@ -101,8 +88,8 @@ export const createRouter = () => {
     DELETE.call(expressRouter, path, ...rest, wrapper(handler));
   };
 
-  expressRouter.createCrud = (service: any, searchFields: string[] = []) => {
-    createCrudRouter(expressRouter, service, searchFields);
+  expressRouter.createCrud = (service: any) => {
+    createCrudRouter(expressRouter, service);
   };
   return expressRouter;
 };

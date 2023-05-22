@@ -1,7 +1,6 @@
-import { initDatabase } from '@/db/index';
-import { json, urlencoded } from 'body-parser';
-// import cors from 'cors';
 import express, { type NextFunction, type Request, type Response } from 'express';
+import { initDatabase } from '@/db';
+import { json, urlencoded } from 'body-parser';
 import morgan from 'morgan';
 import swaggerUi from 'swagger-ui-express';
 import { errorHandler, NotFoundError } from '@/errors';
@@ -27,8 +26,8 @@ class HttpService {
   }
 
   use404ErrorHandler(): void {
-    this.app.get('*', (req: Request, res: Response, next: NextFunction) => {
-      next(new NotFoundError("This route doesn't exist, please check your URL." + req.originalUrl, '404'));
+    this.app.get('*', ({ originalUrl }: Request, res: Response, next: NextFunction) => {
+      next(new NotFoundError("This route doesn't exist, please check your URL: " + originalUrl, '404'));
     });
   }
 

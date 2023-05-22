@@ -2,7 +2,7 @@ version: "3.4" # optional since v1.27.0
 services:
   server:
     container_name: server
-    image: aviorp/node-ts-server
+    image: shuttlelink/server
     env_file: ./.env
     ports:
       - 80:3300
